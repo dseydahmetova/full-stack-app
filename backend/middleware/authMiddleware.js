@@ -28,3 +28,7 @@ async function authorize(req, res, next) {
         res.status(403).json({error: err.message})
     }
 }
+
+module.exports = {
+    authorize
+}
