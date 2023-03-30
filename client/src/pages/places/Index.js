@@ -1,40 +1,59 @@
-import { useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
-// import { getAllPosts } from "../../services/postService"
+import { MyContext } from "../../services/context";
+import StarRating from "../../components/StarRating"
 
 function Index({ user }) {
+    let { places } = useContext(MyContext)
+   
 
-    // const [posts, setPosts] = useState([])
-
-    // useEffect(() => {
-    //     async function loadData() {
-    //         const data = await getAllPosts()
-    //         setPosts(data)
-    //     }
-    //     loadData()
-    // }, [])
-    // console.log(posts)
     return (
-            <div>
-                <h1>Index View</h1>
-                {/* <div id="posts">
 
-                        {posts?.map((post, index) => 
-                            <Link to={`/posts/${post._id}`} key={index}>
-                                <div className="a-post">
-                                    {post.subject}
-                                </div>
-                            </Link>
-                        )}
-            
-                    {user && 
-                        <Link to="/posts/new">
-                            <button>NEW POST</button>
+        <div id="places">
+
+            {places.map((place, index) =>
+                    <div className="card" >
+                        <img src={place.images[0].url} className="card-img-top" alt="place-img" />
+                    
+                    <div className="card-body">
+                        <div className="card-text">
+                        <Link to={`/places/${place.id}`} key={index}> 
+                        <h2>{place.fullName}</h2>
                         </Link>
-                    }
-    
-                </div> */}
-            </div>
+                             <p>{place.addresses[0].line1}, {place.addresses[0].city}, {place.addresses[0].stateCode}</p>
+                            <p>{place.description}</p>
+
+
+                            <StarRating />
+
+                           {/* <p>{place.weatherInfo}</p>
+{place.activities.map((activity, index) => 
+    <div key ={index}>
+    <ul> Activities:
+    <li>{activity.name}</li>
+    </ul>
+    </div>  
+)}         */}
+                        </div>
+                    </div>
+                    </div>
+                
+            )}
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
     )
 }
 

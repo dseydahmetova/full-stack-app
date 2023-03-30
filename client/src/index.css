@@ -7,3 +7,181 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.nav {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  background: #5c72e2;
+  font-size: 30px;
+}
+
+/* .nav-hidden {
+  transform: translateY(cac(-1 * var(--nav-height)));
+} */
+
+/* .SignUpform {
+  background-color: white;
+  border-radius: 5px;
+  width: 550px;
+  margin: 20px auto;
+  padding: 20px;
+} */
+
+/* .signLeftContent {
+  position: relative;
+  color: #f9f9fb;
+  font-weight: bold;
+} */
+
+/* .form-body {
+  text-align: left;
+  padding: 20px 10px;
+} */
+
+
+.signBtn {
+  margin-top: 20px;
+}
+
+.signupBtn {
+  text-align: center;
+  margin-top: 30px;
+}
+
+label {
+  text-align: left;
+  margin: 1rem 1rem;
+}
+
+input,
+textarea,
+select {
+  min-height: 3rem;
+  width: 100%;
+}
+
+.SignUpform {
+  background-color: white;
+  border-radius: 5px;
+  width: 550px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.signImg {
+  border-radius: 10px;
+  width: 400px;
+  height: 450px;
+}
+
+.signLeftContent {
+  position: relative;
+  color: #f9f9fb;
+  font-weight: bold;
+}
+
+.imgText {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.Signform {
+  background-color: #f3c34a;
+  border-radius: 5px;
+  min-width: 650px;
+  width: 40%;
+  height: 500px;
+  margin: 100px auto;
+  padding: 20px;
+  border: solid 1px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.signup {
+  float: right;
+  cursor: pointer;
+}
+
+/* Main Page */
+#places{
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  padding-top: 50px;
+  justify-content: center;
+  gap: 30px;
+
+}
+
+.card {
+  width: 25rem;
+}
+
+.card img{
+  width: 25rem;
+  height: 20rem;
+}
+
+.card-text{
+  height: 25rem;
+}
+
+.placesImg{
+  /* padding: 20px; */
+  /* border-radius: 10%; */
+  /* margin: 10px; */
+  
+}
+
+/* Start Rating */
+/* 
+.star-btn{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000000;
+}
+.off {
+  color: #ccc;
+} */
+
+input[type='radio'] {
+  display: none;
+}
+
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+  margin:0
+}
+
+/* Footer */
+
+.footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #5e57ca;
+  position: absolute;
+  padding: 25px;
+  text-align: center;
+}
+
+.footer-text {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 5px;
+  margin: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}

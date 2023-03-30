@@ -1,4 +1,4 @@
-const Places = require('../models/postModel')
+// const Places = require('../models/postModel')
 
 
 
@@ -9,5 +9,5 @@ module.exports.index = async (req, res) => {
     // } catch(err) {
     //     res.status(400).json({ error: err.message })
     // }
-    res.send('hello')
+    res.render('Index')
 }

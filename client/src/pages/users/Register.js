@@ -37,41 +37,49 @@ function Register({ setUser }) {
     }
 
     return ( 
-        <div className="user-auth">
+        <div className="SignUpform">
             <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <br />
-                <input 
+            {/* <form onSubmit={handleSubmit}> */}
+            <div className="form-body">
+                <div className="username">
+                <label htmlFor="user" className="form__label" >Username:</label>
+                    <input 
+                    className="form__input" 
                     type="text" 
-                    id="username"
-                    name="username"
+                    id="user" 
+                    name = "username"
                     onChange={handleChange}
                     value={form.username}
-                />
-                <br /><br />
-                <label htmlFor="email">Email:</label>
-                <br />
-                <input 
+                    />
+               </div>
+                <div className="email">
+                    <label className="form__label" htmlFor="eml">Email </label>
+                    <input 
+                    id = "eml"
                     type="email" 
-                    id="email"
                     name="email"
                     onChange={handleChange}
-                    value={form.email}
-                />
-                <br /><br />
-                <label htmlFor="password">Password:</label>
+                    value={form.email} 
+                    className="form__input" 
+                     />
+                </div>
+                <div className="password">
+                <label htmlFor="psw">Password:</label>
                 <br />
                 <input 
                     type="password" 
-                    id="password"
+                    id="psw"
                     name="password"
                     onChange={handleChange}
                     value={form.password}
                 />
-                <br /><br />
-                <button>Submit</button>
-            </form>
+                </div>
+              
+                <div className="signupBtn">
+                <button type="submit" onClick={handleSubmit} className="btn btn-primary">Register</button>
+            </div>
+                </div>
+            {/* </form> */}
         </div>
      );
 }

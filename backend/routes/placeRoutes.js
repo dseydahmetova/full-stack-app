@@ -6,8 +6,8 @@ const placeControl = require('../controllers/placeController')
 
 const { authorize, confirmUserAccess } = require('../middleware/authMiddleware')
 
-// seed 
-router.get('/seed', placeControl.seed)
 
 // index
 router.get('/', placeControl.index)
+
+module.exports = router
