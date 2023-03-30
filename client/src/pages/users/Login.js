@@ -40,7 +40,7 @@ function Login({ setUser }) {
     return (
         <div className='Signform'>
             <div className='signLeftContent'>
-                <img className="signImg" src={require('../../images/signImg.jpg')} alt='event img' />
+                <img className="signImg" src={require('../../images/acadia.jpg')} alt='event img' />
                 <div className='imgText'>
                     <h1>Welcome Back</h1>
                     <p>Discover millions of events, get alerts about your favorite artists, teams, plays and more — plus always- secure, effortless ticketing.

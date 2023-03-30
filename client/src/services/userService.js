@@ -34,3 +34,13 @@ export async function userInfo() {
         return {}
     }
 }
+
+export async function createFavForUser(favoritePlace, userId) {
+    const axios = customAxiosWithAuth()
+    try {
+        const response = await axios.post(`/users/${userId}`, favoritePlace)
+        return response.data
+    } catch(err) {
+        console.log(err.message)
+    }
+}

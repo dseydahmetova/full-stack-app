@@ -1,26 +1,30 @@
 import {  useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import StarRating from "../../components/StarRating"
-import { getAllPlaces } from "../../services/placeService";
+import {userInfo } from "../../services/userService";
 
 
 function Index({ user }) {
 
-    const [places, setPlaces] = useState([])
+    // const [places, setPlaces] = useState([])
 
     useEffect(() => {
         async function loadData() {
-            const data = await getAllPlaces()
-            setPlaces(data)
+            const data = await userInfo()
+            // setPlaces(data)
         }
         loadData()
     }, [])
-    console.log(places)
+ 
 
     return (
 
         <div id="places">
-            {places.map((place, index) =>
+
+        <h1>{user.username}</h1>
+        <h1>{user.email}</h1>
+        <h1>this is id {user.id}</h1>
+            {/* {places.map((place, index) =>
                     <div className="card" >
                         <img src={place.image} className="card-img-top" alt="place-img" />
                     
@@ -42,12 +46,12 @@ function Index({ user }) {
                     </div>
                 
             )}
+ */}
+
 
 
 
         </div>
-
-
 
     )
 }

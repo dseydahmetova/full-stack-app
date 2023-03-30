@@ -1,5 +1,9 @@
 // Require dotenv to setup environment variables in our server
 require('dotenv').config()
+const {response} = require('express')
+const https = require('https')
+const axios = require('axios');
+const Place = require('./models/placeModel')
 
 //load express
 const express = require('express')
@@ -25,6 +29,8 @@ const {authorize} = require('./middleware/authMiddleware')
 
 app.use(express.json())
 app.use(cors())
+
+
 
 app.use('/places', placeRoutes)
 app.use('/users', authorize, userRoutes)

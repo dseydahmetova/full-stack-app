@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
+
 const userSchema = new Schema({
     username: {
         type: String,
@@ -11,11 +12,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-   
     email: {
         type: String,
         required: true
-    }
+    },
+    favoritePlaces:[{
+        type: mongoose.Types.ObjectId,
+        ref: 'Place'
+    }]
 })
 
 const User = mongoose.model('User', userSchema)

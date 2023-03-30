@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Navbar({ user, setUser }) {
-  
+
   const logout = () => {
     localStorage.removeItem("token")
     setUser({})
@@ -11,7 +11,7 @@ function Navbar({ user, setUser }) {
 
 <nav className="navbar navbar-expand-lg nav">
       <div className="container-fluid">
-       
+      
         
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className='navbar-nav ms-auto mb-2 mb-lg-0'>
@@ -21,6 +21,11 @@ function Navbar({ user, setUser }) {
           <li className="nav-item">
             <Link className="nav-link" to="/places">Places</Link>
           </li>
+          <li className="nav-item">
+              <Link className="nav-link" to={`/profile`}>
+                <div>My Profile</div>
+              </Link>
+            </li>
           <li className="nav-item" onClick={logout}>
             <Link  className="nav-link" to="/login">Logout</Link>
           </li>
@@ -37,7 +42,7 @@ function Navbar({ user, setUser }) {
             <Link  className="nav-link" to="/register">Register</Link>
           </li>
           <li className="nav-item">
-              <Link className="nav-link" to='/help'>
+              <Link className="nav-link" to='/about'>
                 <div>About</div>
               </Link>
             </li>

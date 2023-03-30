@@ -24,7 +24,7 @@ async function  register(req, res) {
         //generate a JWT token and return it to user
 
         const payload = {id: newUser._id, user: newUser.username}
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 300})
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 3000})
 
         res.status(200).json({token})
     }catch(err){
