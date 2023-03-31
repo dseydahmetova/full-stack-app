@@ -15,15 +15,20 @@ function Navbar({ user, setUser }) {
         
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className='navbar-nav ms-auto mb-2 mb-lg-0'>
-      {user ? 
+      {user.username ? 
         <>
-          <li className="nav-item">Welcome {user}!</li>
+          <li className="nav-item">Welcome {user.username}!</li>
           <li className="nav-item">
             <Link className="nav-link" to="/places">Places</Link>
           </li>
           <li className="nav-item">
-              <Link className="nav-link" to={`/profile`}>
-                <div>My Profile</div>
+              <Link className="nav-link" to="saved-places">
+                <div>My Places</div>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to={`users/${user.id}`}>
+                <div>Settings</div>
               </Link>
             </li>
           <li className="nav-item" onClick={logout}>
@@ -41,11 +46,11 @@ function Navbar({ user, setUser }) {
           <li className="nav-item">
             <Link  className="nav-link" to="/register">Register</Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
               <Link className="nav-link" to='/about'>
                 <div>About</div>
               </Link>
-            </li>
+            </li> */}
         </>
       }
     </ul>

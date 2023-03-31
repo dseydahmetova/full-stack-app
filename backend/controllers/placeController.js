@@ -1,7 +1,6 @@
 const Place = require('../models/placeModel')
+const User = require('../models/userModel')
 const axios = require('axios')
-
-
 
 
 module.exports.seed = async (req, res) => {
@@ -32,7 +31,6 @@ module.exports.seed = async (req, res) => {
     }catch(error){
         console.log(error)
     }
-
     res.redirect('/places')
 }
 
@@ -54,3 +52,45 @@ module.exports.show = async (req, res) => {
         res.status(404).json({ error: err.message })
     }
 }
+
+module.exports.save = async (req, res) => {
+    try {
+        const place = await Place.findById(req.body.placeId)
+        // const user = await User.findById(req.body.userId)
+        // user.savedPlaces.push(place)
+        // await user.save()
+        await User.findById(req.body.userId, {
+            $push:{
+                savedPlaces: place._id
+            }
+        })
+        res.status(200).json({savedPlaces})
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+}
+
+module.exports.getSavedPlaces = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        res.status(200).json({savedPlaces: user?.savedPlaces})
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+}
+
+module.exports.showSavedPlaces = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        const savedPlaces = await Place.find({
+            _id: {$in: user.savedRecipes}
+        })
+        res.status(200).json({savedPlaces})
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+}
+
+
+// EXTRA CODE FOR COMMENTS
+

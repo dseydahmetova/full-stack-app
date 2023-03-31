@@ -35,11 +35,19 @@ export async function userInfo() {
     }
 }
 
-export async function createFavForUser(favoritePlace, userId) {
+export async function deleteUser(id) {
     const axios = customAxiosWithAuth()
     try {
-        const response = await axios.post(`/users/${userId}`, favoritePlace)
-        return response.data
+        await axios.delete(`/users/${id}`)
+    } catch(err) {
+        console.log(err.message)
+    }
+}
+
+export async function updateUser(id, user) {
+    const axios = customAxiosWithAuth()
+    try {
+        await axios.put(`/users/${id}`, user)
     } catch(err) {
         console.log(err.message)
     }

@@ -12,6 +12,7 @@ import Register from './pages/users/Register';
 import Login from './pages/users/Login';
 
 import Profile from './pages/users/Index';
+import Settings from './pages/users/Show'
 
 import IndexPlace from './pages/places/Index';
 import ShowPlace from './pages/places/Show';
@@ -48,16 +49,24 @@ function App() {
 
   return (
     <div className="App">
-     <Navbar user={loggedIn} setUser={setUser} />
+     <Navbar user={user} setUser={setUser} />
       <Routes>
       <Route path='/places' element={<IndexPlace user={loggedIn} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
-      <Route path='/profile' element={<Profile user={user} />} />
-              <Route path='/register' element={<Register setUser={setUser} />} />
-              <Route path='/login' element={<Login setUser={setUser} />} />
-              {/* {!isLoading && <Route path='*' element={<Navigate to='/login' />} />} */}
-          
-         
+      {loggedIn ?
+      <>
+                 <Route path='/saved-places' element={<Profile user={user} />} />
+                 <Route path='/users/:id' element={<Settings user={user} setUser={setUser} />} />
+
+              {!isLoading && <Route path='*' element={<Navigate to='/places' />} />}
+                 </> 
+                 :
+                 <>  
+                 <Route path='/login' element={<Login setUser={setUser} />} />
+                 <Route path='/register' element={<Register setUser={setUser} />} />
+                 {!isLoading && <Route path='*' element={<Navigate to='/login' />} />}
+         </>
+      }
       </Routes>
       {/* <Footer/> */}
     </div>

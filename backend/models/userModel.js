@@ -16,7 +16,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    favoritePlaces:[{
+    savedPlaces:[{
         type: mongoose.Types.ObjectId,
         ref: 'Place'
     }]

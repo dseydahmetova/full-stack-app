@@ -1,4 +1,4 @@
-import { customAxios } from './api'
+import { customAxios, customAxiosWithAuth } from './api'
 
 
 export async function getAPIPlaces() {
@@ -34,3 +34,31 @@ export async function getPlace(id) {
         console.log(err.message)
     }
 }
+
+// export async function deletePlace(id) {
+//     const axios = customAxiosWithAuth()
+//     try {
+//         await axios.delete(`/places/${id}`)
+//     } catch(err) {
+//         console.log(err.message)
+//     }
+// }
+
+// export async function createPlace(place) {
+//     const axios = customAxiosWithAuth()
+//     try {
+//         const response = await axios.post('/laces', place)
+//         return response.data
+//     } catch(err) {
+//         console.log(err.message)
+//     }
+// }
+
+// export async function updatePost(id, place) {
+//     const axios = customAxiosWithAuth()
+//     try {
+//         await axios.put(`/places/${id}`, place)
+//     } catch(err) {
+//         console.log(err.message)
+//     }
+// }

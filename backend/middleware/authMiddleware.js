@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken')
 
+const Place = require('../models/placeModel')
+const Comment = require('../models/placeModel')
+
+
 async function authorize(req, res, next) {
     try{
         //check if the request has a token
@@ -28,6 +32,29 @@ async function authorize(req, res, next) {
         res.status(403).json({error: err.message})
     }
 }
+
+async function confirmUserAccess(req, res, next) {
+    try {
+        let document;
+        if (req.baseUrl.includes('place')) { 
+            document = await Place.findOne({ _id: req.params.id, user: req.user })
+        } else {
+            document = await Comment.findOne({ _id: req.params.id, user: req.user })
+        }
+        if (!document) {
+            throw new Error('User did not create this document')
+        }
+        next()
+    } catch(err) {
+        res.status(403).json({ error: err.message })
+    }
+}
+
+module.exports = {
+    authorize,
+    confirmUserAccess
+}
+
 
 module.exports = {
     authorize

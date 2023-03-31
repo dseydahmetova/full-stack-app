@@ -39,7 +39,6 @@ function Register({ setUser }) {
     return ( 
         <div className="SignUpform">
             <h1>Register</h1>
-            {/* <form onSubmit={handleSubmit}> */}
             <div className="form-body">
                 <div className="username">
                 <label htmlFor="user" className="form__label" >Username:</label>
@@ -79,7 +78,6 @@ function Register({ setUser }) {
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary">Register</button>
             </div>
                 </div>
-            {/* </form> */}
         </div>
      );
 }

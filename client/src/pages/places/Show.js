@@ -3,13 +3,14 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import StarRating from "../../components/StarRating";
 import { getPlace } from "../../services/placeService";
 import { createFavForUser } from "../../services/userService"
-
+import axios from 'axios'
 
 
 function Show({ user }) {
-
+const userId = user.id
     const [places, setPlaces] = useState({})
-    const [ setUser] = useState({})
+    const [savedPlaces, setSavedPlaces] = useState([]);
+    // const [ setUser] = useState({})
     const navigate = useNavigate()
     const params = useParams()
     const imgRef = useRef()
@@ -32,27 +33,53 @@ function Show({ user }) {
             setPlaces(data)
         }
 
-        loadData()
-    }, [params.id])
-
-
-   async function addToFavorite(e){
-        e.preventDefault()
-
-        let favoritePlace = {
-            image: imgRef.current.value,
-   fullName: nameRef.current.value,
-   address: addressRef.current.value,
-   city: cityRef.current.value,
-   stateCode: stateRef.current.value,
-   description: descRef.current.value,
-   weatherInfo: weatherRef.current.value,
+        
+        const getSavedPlaces = async () => {
+            try{
+                const response = await axios.get(
+                `http://localhost:8080/places/savedPlaces/ids/${user.id}`
+            )
+            setSavedPlaces(response.data.savedPlaces)
+            }catch(err) {
+                console.log(err)
+            }
         }
 
-        const newFav = await createFavForUser(favoritePlace, user.id)
-        let updatedUser = { ...user }
-        updatedUser.favoritePlaces.push(newFav)
-        setUser(updatedUser)
+        loadData()
+        getSavedPlaces()
+
+    }, [params.id])
+
+    
+
+   async function addToFavorite(placeId){
+    try{
+        const response = await axios.put(
+        `http://localhost:8080/places}`,{
+ placeId,
+userId           
+        })
+            setSavedPlaces(response.data.savedPlaces)
+    }catch(err){
+        console.log(err)
+    }
+
+//         e.preventDefault()
+
+//         let favoritePlace = {
+//             image: imgRef.current.value,
+//    fullName: nameRef.current.value,
+//    address: addressRef.current.value,
+//    city: cityRef.current.value,
+//    stateCode: stateRef.current.value,
+//    description: descRef.current.value,
+//    weatherInfo: weatherRef.current.value,
+//         }
+
+//         const newFav = await createFavForUser(favoritePlace, user.id)
+//         let updatedUser = { ...user }
+//         updatedUser.favoritePlaces.push(newFav)
+//         setUser(updatedUser)
         
 
 
@@ -75,11 +102,11 @@ function Show({ user }) {
           };
         
     
-
+const isPlaceSaved = (id) => savedPlaces.includes(id)
     return (
 
         <div id="place--details">
-<form onSubmit={addToFavorite}>
+<form >
             <div className="card" >
                 <img ref={imgRef} name = "image" src={places.image} className="card-img-top" alt="item-img" />
 
@@ -99,7 +126,12 @@ function Show({ user }) {
 
                         <div>
                         
-                        <button  > Save </button>
+                        <button 
+                        onClick = {() =>{addToFavorite(places._id)}}
+                        disabled = {isPlaceSaved(places._id)}
+                         > 
+                         {isPlaceSaved(places._id) ? "Saved" : "Save"}
+                        </button>
                         
                             
                         

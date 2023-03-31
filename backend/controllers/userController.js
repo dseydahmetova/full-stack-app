@@ -7,7 +7,7 @@ module.exports.show = async (req, res) => {
         res.json({
             username: foundUser.username,
             email: foundUser.email,
-            favoritePlaces: foundUser.favoritePlaces,
+            favoritePlaces: [foundUser.favoritePlaces],
             id: req.id
         })
     }catch(error){
@@ -15,29 +15,21 @@ module.exports.show = async (req, res) => {
     }
 }
 
-module.exports.createFav = async (req, res) => {
-    try {
-        await User.findByIdAndUpdate(req.params.id, {
-            $push: {
-                favoritePlaces: req.body
-            }
-        })
-        res.json({message:'added to favorites'})
-    } catch(err) {
-        res.status(400).json({ error: err.message })
+module.exports.update = async (req, res) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+        res.status(200).json(updatedUser)
+    }catch(error){
+        res.json({error: error.message})
     }
 }
 
-
-module.exports.profile = async (req, res) => {
+module.exports.delete = async (req, res) => {
     try{
-        const foundUser = await User.findById(req.id)
+        const user = await User.findByIdAndDelete(req.params.id)
 
-        res.json({
-            username: foundUser.username,
-            email: foundUser.email,
-            id: req.id
-        })
+        res.status(200).json({message: 'deleted successfully'})
     }catch(error){
         res.json({error: error.message})
     }
