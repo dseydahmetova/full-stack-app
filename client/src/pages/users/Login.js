@@ -37,20 +37,24 @@ function Login({ setUser }) {
         navigate('/places')
     }
 
+    function goToRegister(){
+        navigate('/register')
+    }
+
     return (
         <div className='Signform'>
             <div className='signLeftContent'>
-                <img className="signImg" src={require('../../images/acadia.jpg')} alt='event img' />
+                <img className="signImg" src={require('../../images/adir.jpg')} alt='event img' />
                 <div className='imgText'>
                     <h1>Welcome Back</h1>
-                    <p>Discover millions of events, get alerts about your favorite artists, teams, plays and more — plus always- secure, effortless ticketing.
+                    <p>Wondering how to plan your dream trip? We're here to help.
                     </p>
                 </div>
             </div>
             <div className="form-body">
                 <h2>Sign In</h2>
-                <p>New to EventMaster? </p>
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Sign Up</button>
+                <p>Do not have an account? </p>
+                <button type="button" className="btn btn-primary" onClick={goToRegister} data-bs-whatever="@mdo">Sign Up</button>
                 <form onSubmit={handleSubmit}>
                 <div className="email">
                     <label className="form__label" htmlFor="user">Username </label>
@@ -59,7 +63,9 @@ function Login({ setUser }) {
                     className="form__input" 
                     name="username"
                     onChange={handleChange}
-                    value={form.username} />
+                    value={form.username} 
+                        required
+                    />
                 </div>
                 <div className="password">
                     <label className="form__label" htmlFor="pass">Password </label>
@@ -69,6 +75,7 @@ function Login({ setUser }) {
                     name="password" 
                     onChange={handleChange}
                     value={form.password}
+                    required
                     />
                 </div>
                 <div className="signBtn">
@@ -77,11 +84,11 @@ function Login({ setUser }) {
                 </form>
             </div>
            
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <Register />
                 </div> 
-            </div>
+            </div> */}
         </div>
     );
 }

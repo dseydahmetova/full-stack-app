@@ -43,9 +43,9 @@ function Navbar({ user, setUser }) {
           <li className="nav-item">
             <Link className="nav-link signup" to="/login">Login</Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link  className="nav-link" to="/register">Register</Link>
-          </li>
+          </li> */}
           {/* <li className="nav-item">
               <Link className="nav-link" to='/about'>
                 <div>About</div>

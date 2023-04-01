@@ -40,15 +40,18 @@ function Register({ setUser }) {
         <div className="SignUpform">
             <h1>Register</h1>
             <div className="form-body">
+            <form onSubmit= {handleSubmit}>
                 <div className="username">
                 <label htmlFor="user" className="form__label" >Username:</label>
                     <input 
+                    // required pattern="[A-Za-z]{3,}"
                     className="form__input" 
                     type="text" 
                     id="user" 
                     name = "username"
                     onChange={handleChange}
                     value={form.username}
+                    validate="required:true"
                     />
                </div>
                 <div className="email">
@@ -60,6 +63,8 @@ function Register({ setUser }) {
                     onChange={handleChange}
                     value={form.email} 
                     className="form__input" 
+                    validate="required:true"
+                    pattern=".+@globex\.com"
                      />
                 </div>
                 <div className="password">
@@ -71,12 +76,14 @@ function Register({ setUser }) {
                     name="password"
                     onChange={handleChange}
                     value={form.password}
+                    validate="required:true"
                 />
                 </div>
               
                 <div className="signupBtn">
-                <button type="submit" onClick={handleSubmit} className="btn btn-primary">Register</button>
+                <button type="submit"  className="btn btn-primary">Register</button>
             </div>
+            </form>
                 </div>
         </div>
      );

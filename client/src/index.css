@@ -14,7 +14,7 @@ body {
   left: 0;
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
   transition: transform 0.2s;
-  background: #5c72e2;
+  background: white;
   font-size: 30px;
 }
 
@@ -40,7 +40,10 @@ body {
   text-align: left;
   padding: 20px 10px;
 } */
-
+button {
+ background-color: #397c70;
+color: white
+}
 
 .signBtn {
   margin-top: 20px;
@@ -90,10 +93,10 @@ select {
 }
 
 .Signform {
-  background-color: #d5ca94;
+  background-color: #79a6a6 ;
   border-radius: 5px;
   min-width: 650px;
-  width: 40%;
+  width: 32%;
   height: 500px;
   margin: 100px auto;
   padding: 20px;
@@ -109,34 +112,160 @@ select {
 }
 
 /* Main Page */
-#places{
+
+#main{
+  display: flex;
+  flex-direction: column;
+}
+
+.places{
   display: grid;
   grid-template-columns: repeat(4, auto);
   padding-top: 50px;
   justify-content: center;
   gap: 30px;
+}
 
+.card{
+  transition: box-shadow .3s;
+}
+.card:hover{
+  box-shadow: 20px 20px 20px rgba(78, 78, 218, 0.2); 
+}
+
+.places a {
+  text-decoration: none;
+  color: black;
+}
+
+.card-top{
+position: relative;
+}
+
+.placeName{
+  position:absolute;
+  bottom: 0;
+  color: white;
+  padding: 20px;
+  font-family: "Google Sans",'Roboto',"Helvetica Neue",Arial,sans-serif;
+    font-weight: 600;
+}
+
+.delete-btn{
+position:absolute;
+right: 2px;
+top: 2px;
+}
+
+
+.delete-btn button:after {
+  content: '\2807';
+  font-size: 24px;
+  }
+
+  .delete-btn button:hover {
+    background-color: rgb(94, 91, 91);
+    color: white
+    }
+
+.delete-btn button{
+  color: black;
+  box-shadow: 0 6px 6px rgba(8, 8, 8, 0.6);
+
+  background-color: rgb(241, 241, 248);
+margin: 10px; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid transparent; */
+    border-radius: 50%;
+    height: 40px;
+    left: 0;
+   cursor: pointer;
+    top: 0;
+    width: 40px;
 }
 
 .card {
+  margin-top: 50px;
   width: 25rem;
 }
 
 .card img{
-  width: 25rem;
   height: 20rem;
 }
 
 .card-text{
-  height: 25rem;
+  height: 20rem;
 }
 
-.placesImg{
-  /* padding: 20px; */
-  /* border-radius: 10%; */
-  /* margin: 10px; */
-  
+.welcome-msg{
+  color: white;
+  margin-top: 50px;
 }
+
+.card-title{
+  text-align: center;
+  /* height: 200px; */
+  padding: 50px;
+  position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    background: 
+    /* rgb(55, 99, 55); */
+    200px/200px url(https://assets.thedyrt.com/next/public/assets/images/NoiseOverlay_Dark@2x.png),linear-gradient(180deg,#397c70,#1a4e3d 82.11%);
+    height: 300px;
+    padding: 0 3rem;
+}
+
+/* .card-title img {
+  object-fit: contain;
+    width: 350px;
+    height: 400px;
+} */
+
+/* .container{
+   margin-left:auto;
+  margin-right: auto; 
+  max-width: 1200px;
+  display: flex;
+  height: 80%;
+  gap: 220px;
+} */
+
+/* .left-container{
+  color: white;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+} */
+
+  .clip{
+    clip-path: polygon(0 0,0.00% -0.00%,1.00% 0.69%,2.00% 2.67%,3.00% 5.77%,4.00% 9.67%,5.00% 14.00%,6.00% 18.33%,7.00% 22.23%,8.00% 25.33%,9.00% 27.31%,10.00% 28.00%,11.00% 27.31%,12.00% 25.33%,13.00% 22.23%,14.00% 18.33%,15.00% 14.00%,16.00% 9.67%,17.00% 5.77%,18.00% 2.67%,19.00% 0.69%,20.00% -0.00%,21.00% 0.69%,22.00% 2.67%,23.00% 5.77%,24.00% 9.67%,25.00% 14.00%,26.00% 18.33%,27.00% 22.23%,28.00% 25.33%,29.00% 27.31%,30.00% 28.00%,31.00% 27.31%,32.00% 25.33%,33.00% 22.23%,34.00% 18.33%,35.00% 14.00%,36.00% 9.67%,37.00% 5.77%,38.00% 2.67%,39.00% 0.69%,40.00% -0.00%,41.00% 0.69%,42.00% 2.67%,43.00% 5.77%,44.00% 9.67%,45.00% 14.00%,46.00% 18.33%,47.00% 22.23%,48.00% 25.33%,49.00% 27.31%,50.00% 28.00%,51.00% 27.31%,52.00% 25.33%,53.00% 22.23%,54.00% 18.33%,55.00% 14.00%,56.00% 9.67%,57.00% 5.77%,58.00% 2.67%,59.00% 0.69%,60.00% -0.00%,61.00% 0.69%,62.00% 2.67%,63.00% 5.77%,64.00% 9.67%,65.00% 14.00%,66.00% 18.33%,67.00% 22.23%,68.00% 25.33%,69.00% 27.31%,70.00% 28.00%,71.00% 27.31%,72.00% 25.33%,73.00% 22.23%,74.00% 18.33%,75.00% 14.00%,76.00% 9.67%,77.00% 5.77%,78.00% 2.67%,79.00% 0.69%,80.00% -0.00%,81.00% 0.69%,82.00% 2.67%,83.00% 5.77%,84.00% 9.67%,85.00% 14.00%,86.00% 18.33%,87.00% 22.23%,88.00% 25.33%,89.00% 27.31%,90.00% 28.00%,91.00% 27.31%,92.00% 25.33%,93.00% 22.23%,94.00% 18.33%,95.00% 14.00%,96.00% 9.67%,97.00% 5.77%,98.00% 2.67%,99.00% 0.69%,100.00% -0.00%,100% 100%,0% 100%);
+    display: unset;
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    bottom: -55px;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+  }
+  
+
+#place-details{
+margin-left: 30%;
+padding: 100px;
+}
+
+.card-detail{
+  width: 60rem;
+  /* height: 10rem; */
+}
+
 
 /* Start Rating */
 /* 

@@ -11,8 +11,8 @@ import Navbar from './components/Navbar';
 import Register from './pages/users/Register';
 import Login from './pages/users/Login';
 
-import Profile from './pages/users/Index';
-import Settings from './pages/users/Show'
+import Profile from './pages/users/save';
+import Settings from './pages/users/Edit'
 
 import IndexPlace from './pages/places/Index';
 import ShowPlace from './pages/places/Show';
@@ -51,8 +51,10 @@ function App() {
     <div className="App">
      <Navbar user={user} setUser={setUser} />
       <Routes>
+      <Route path='/' element={<Navigate to='/places'/>} />
       <Route path='/places' element={<IndexPlace user={loggedIn} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
+      <Route path='/places/search' element={<IndexPlace user={user} />} />
       {loggedIn ?
       <>
                  <Route path='/saved-places' element={<Profile user={user} />} />

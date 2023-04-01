@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { deleteUser, updateUser } from "../../services/userService"
 
 function Show({ user, setUser }) {
     const navigate = useNavigate()
-    const params = useParams()
     const mailRef = useRef()
 
     const [tempUser, setTempUser] = useState({})
@@ -66,11 +65,6 @@ function Show({ user, setUser }) {
                 />
 
             </div>
-
-
-
-
-
 
 
             <div className="buttons">
