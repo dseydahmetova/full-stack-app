@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Index({ user }) {
 
     const [places, setPlaces] = useState([])
-    const [currentId, setCurrentId] = useState(0);
+    const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
         async function loadData() {
@@ -21,7 +21,9 @@ function Index({ user }) {
         }
         loadData()
     }, [currentId])
-    console.log(places)
+    // console.log(places)
+ console.log('id', currentId)
+   
 
     return (
 
@@ -63,11 +65,17 @@ function Index({ user }) {
                                     <p>{place.description}</p>
                                     <div>
                                     <StarRating />
-                                    <button>
+                                    <button className="icon">
                                         <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />  Like {place.likeCount}                        
                                     </button>
-                                    <button>
+                                    <button className="icon">
                                     <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete                      
+                                    </button>
+                                    <button className="icon" 
+                                    onClick={(e) => setCurrentId(place._id)}
+                                    // onClick={(e) =>console.log('hello')}
+                                    >
+                                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit                     
                                     </button>
 </div>
                                 </div>

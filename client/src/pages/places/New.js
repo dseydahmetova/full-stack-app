@@ -1,27 +1,26 @@
 import { useState, useEffect } from 'react'
 import FileBase from 'react-file-base64';
-import { createPlace, updatePlace } from '../../services/placeService'
-import axios from 'axios'
+import { createPlace, getPlace, updatePlace } from '../../services/placeService'
+
 
 function New({ user, currentId, setCurrentId }) {
     const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
 
     useEffect(() => {
         if (currentId) {
-            axios.get(`https://http://localhost:3000/places/${currentId}`)
-                .then(response => {
-                    setPlaceData(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            async function loadData() {
+                const data = await getPlace(currentId)
+                setPlaceData(data)
+            }
+            loadData()
         } else {
             setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
         }
 
-        console.log(placeData)
-
+        // console.log(placeData)
+       
     },
+    
 
         [currentId]);
 
