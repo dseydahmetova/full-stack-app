@@ -18,6 +18,9 @@ router.get('/seed', placeControl.seed)
 //save
 router.put('/', placeControl.save)
 
+// create
+router.post('/', authorize, placeControl.create)
+
 //getSaved
 router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)
 

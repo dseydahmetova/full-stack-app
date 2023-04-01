@@ -53,6 +53,15 @@ module.exports.show = async (req, res) => {
     }
 }
 
+module.exports.create = async (req, res) => {
+    try {
+        const place = await Place.create(req.body)
+        res.status(200).json(place)
+    } catch(err) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
 module.exports.save = async (req, res) => {
     try {
         const place = await Place.findById(req.body.placeId)

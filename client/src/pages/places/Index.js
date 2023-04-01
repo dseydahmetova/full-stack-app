@@ -4,10 +4,12 @@ import StarRating from "../../components/StarRating"
 import { getAllPlaces } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
 import {Paper} from '@material-ui/core'
+import New from './New'
 
 function Index({ user }) {
 
     const [places, setPlaces] = useState([])
+    const [currentId, setCurrentId] = useState(0);
 
     useEffect(() => {
         async function loadData() {
@@ -15,7 +17,7 @@ function Index({ user }) {
             setPlaces(data)
         }
         loadData()
-    }, [])
+    }, [currentId])
     console.log(places)
 
     return (
@@ -36,7 +38,7 @@ function Index({ user }) {
         {/* </div> */}
 
  {/* </div> */}
-
+ <div className="Home">
 <div className = "places">
             {places.map((place, index) =>
                 <Link to={`/places/${place._id}`} key={index}> 
@@ -64,16 +66,17 @@ function Index({ user }) {
                     </Link>
                 
             )}
+          
+            </div>
+           <div className="form">
+ <New currentId = {currentId} setCurrentId = {setCurrentId} user = {user}/>
             <Paper  elevation = {6}>
             <Pagination/>
-
             </Paper>
             </div>
-           
-
         </div>
 
-
+</div>
 
     )
 }

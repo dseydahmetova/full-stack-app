@@ -40,6 +40,9 @@ body {
   text-align: left;
   padding: 20px 10px;
 } */
+
+
+
 button {
  background-color: #397c70;
 color: white
@@ -116,6 +119,20 @@ select {
 #main{
   display: flex;
   flex-direction: column;
+}
+
+.Home{
+  display: flex;
+}
+
+.form{
+  background-color: #397c70;
+height: 500px;
+display: flex;
+flex-direction: column;
+  padding-top: 50px;
+  justify-content: center;
+  gap: 30px;
 }
 
 .places{

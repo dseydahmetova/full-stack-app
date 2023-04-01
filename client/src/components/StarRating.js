@@ -11,7 +11,7 @@ export default function StarRating () {
         {[...Array(5)].map((star, index) => {
             const ratingValue = index + 1
             return (
-                <label>
+                <label key={index}>
                 <input 
                 type="radio" 
                 name="rating" 
