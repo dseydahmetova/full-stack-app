@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link} from "react-router-dom"
 import StarRating from "../../components/StarRating"
-import { getAllPlaces, deletePlace } from "../../services/placeService";
+import { getAllPlaces, deletePlace, likePlace } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
 import { Paper } from '@material-ui/core'
 import New from './New'
@@ -31,6 +31,11 @@ function Index({ user }) {
     setPlaces(data)
 }
 
+async function handleLikePlace(id){
+   await likePlace(id)
+   const data = await getAllPlaces()
+   setPlaces(data)
+}
   
 
 
@@ -57,8 +62,8 @@ function Index({ user }) {
                 <div className="places">
                     {places.map((place, index) =>
 
-                        <div className="card" >
-                            <Link to={`/places/${place._id}`} key={index}>
+                        <div className="card" key={index}>
+                            <Link to={`/places/${place._id}`} >
 
                                 <div className="card-top">
                                     <div image={place.image}></div>
@@ -75,7 +80,10 @@ function Index({ user }) {
                                     <p>{place.description}</p>
                                     <div>
                                     <StarRating />
-                                    <button className="icon">
+                                    <button className="icon" 
+                                     onClick={(e) => handleLikePlace(place._id)}
+                                
+                                    >
                                         <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />  Like {place.likeCount}                        
                                     </button>
                                     <button className="icon"
@@ -97,7 +105,7 @@ function Index({ user }) {
 
                 </div>
                 <div className="form">
-                    <New currentId={currentId} setCurrentId={setCurrentId} user={user} />
+                    <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
                     <Paper elevation={6}>
                         <Pagination />
                     </Paper>

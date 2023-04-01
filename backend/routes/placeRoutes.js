@@ -9,14 +9,15 @@ const { authorize, confirmUserAccess } = require('../middleware/authMiddleware')
 
 
 
+
 // index
 router.get('/', placeControl.index)
 
+// create
+router.post('/', placeControl.create)
+
 // seed 
 router.get('/seed', placeControl.seed)
-
-//save
-router.put('/', placeControl.save)
 
 // delete
 router.delete('/:id', placeControl.delete)
@@ -24,8 +25,28 @@ router.delete('/:id', placeControl.delete)
 // update
 router.put('/:id',  placeControl.update)
 
-// create
-router.post('/', authorize, placeControl.create)
+// show
+router.get('/:id', placeControl.show)
+
+//likes
+router.put('/:id/likePlace', placeControl.like)
+
+
+
+
+
+//save
+router.put('/', placeControl.save)
+
+
+
+
+
+
+
+
+
+
 
 //getSaved
 router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)
@@ -33,8 +54,7 @@ router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)
 //showSaved
 router.get("/savedPlaces/:userId", placeControl.showSavedPlaces)
 
-// show
-router.get('/:id', placeControl.show)
+
 
 
 

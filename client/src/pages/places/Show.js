@@ -35,19 +35,19 @@ function Show({ user }) {
         }
 
 
-        const getSavedPlaces = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:8080/places/savedPlaces/ids/${user.id}`
-                )
-                setSavedPlaces(response.data.savedPlaces)
-            } catch (err) {
-                console.log(err)
-            }
-        }
+        // const getSavedPlaces = async () => {
+        //     try {
+        //         const response = await axios.get(
+        //             `http://localhost:8080/places/savedPlaces/ids/${user.id}`
+        //         )
+        //         setSavedPlaces(response.data.savedPlaces)
+        //     } catch (err) {
+        //         console.log(err)
+        //     }
+        // }
 
         loadData()
-        getSavedPlaces()
+        // getSavedPlaces()
 
     }, [params.id])
 
@@ -169,7 +169,7 @@ function Show({ user }) {
                                     </>
                                     : ''
                             }
-                            {user &&
+                            {/* {user &&
                                 <details ref={detailsRef}>
                                     <summary style={{ opacity: '.5' }}>Leave a comment:</summary>
                                     <form onSubmit={handleSubmit}>
@@ -177,7 +177,7 @@ function Show({ user }) {
                                         <button>Comment</button>
                                     </form>
                                 </details>
-                            }
+                            } */}
 
                             <div className="buttons">
                                 {places.user === user.username &&

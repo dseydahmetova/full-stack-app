@@ -47,12 +47,22 @@ export async function deletePlace(id) {
 export async function createPlace(place) {
     const axios = customAxiosWithAuth()
     try {
-        const response = await axios.post('/Places', place)
+        const response = await axios.post('/places', place)
         return response.data
     } catch(err) {
         console.log(err.message)
     }
 }
+
+export async function likePlace(id) {
+    const axios = customAxiosWithAuth()
+    try {
+        await axios.put(`/places/${id}/likePlace`)
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 
 export async function updatePlace(id, place) {
     const axios = customAxiosWithAuth()

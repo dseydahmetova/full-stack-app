@@ -82,6 +82,18 @@ module.exports.delete = async (req, res) => {
 }
 
 
+module.exports.like = async (req, res) => {
+    try {
+        const place = await Place.findById(req.params.id) 
+        const updatedPlace = await Place.findByIdAndUpdate(req.params.id, {likeCount: place.likeCount + 1}, { new: true })
+        res.status(200).json(updatedPlace)
+    } catch(err) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
+
+
 
 module.exports.save = async (req, res) => {
     try {

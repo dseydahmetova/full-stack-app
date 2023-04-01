@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import FileBase from 'react-file-base64';
-import { createPlace, getPlace, updatePlace } from '../../services/placeService'
+import { createPlace, getPlace, updatePlace, getAllPlaces} from '../../services/placeService'
 
 
-function New({ user, currentId, setCurrentId }) {
+function New({ user, currentId, setCurrentId, setPlaces}) {
     const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
 
     useEffect(() => {
@@ -37,14 +37,16 @@ function New({ user, currentId, setCurrentId }) {
 
             } else {
                 await createPlace(placeData)
+                const data = await getAllPlaces()
+    setPlaces(data)
             }
             clear()
 
         } catch (error) {
             console.error(error);
         }
-
     }
+
 
 
     return (
