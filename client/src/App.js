@@ -1,6 +1,10 @@
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap"
+import 'font-awesome/css/font-awesome.min.css'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -20,7 +24,8 @@ import ShowPlace from './pages/places/Show';
 import { getAPIPlaces } from "../src/services/placeService"
 
 function App() {
-
+  library.add(fas)
+  
   const [user, setUser] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 

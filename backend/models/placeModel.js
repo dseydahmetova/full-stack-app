@@ -16,6 +16,10 @@ const placeSchema = new Schema({
    stateCode: { type: String, },
    description: { type: String, },
    weatherInfo: { type: String,},
+   likeCount: {
+      type: Number,
+      default: 0,
+  },
    comments: [  commentSchema ]
 })
 
