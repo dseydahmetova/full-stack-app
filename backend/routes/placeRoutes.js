@@ -18,11 +18,14 @@ router.get('/seed', placeControl.seed)
 //save
 router.put('/', placeControl.save)
 
-// create
-router.post('/', authorize, placeControl.create)
+// delete
+router.delete('/:id', placeControl.delete)
 
 // update
 router.put('/:id',  placeControl.update)
+
+// create
+router.post('/', authorize, placeControl.create)
 
 //getSaved
 router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)

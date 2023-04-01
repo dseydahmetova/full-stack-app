@@ -331,3 +331,10 @@ input[type='radio'] {
   text-decoration: none;
   white-space: nowrap;
 }
+
+/* Edit/Create Form */
+
+form{
+  padding: 20px;
+  /* height: 500px; */
+}

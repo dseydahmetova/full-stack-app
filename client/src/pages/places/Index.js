@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link} from "react-router-dom"
 import StarRating from "../../components/StarRating"
-import { getAllPlaces } from "../../services/placeService";
+import { getAllPlaces, deletePlace } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
 import { Paper } from '@material-ui/core'
 import New from './New'
@@ -24,6 +24,16 @@ function Index({ user }) {
     // console.log(places)
  console.log('id', currentId)
    
+ 
+ async function handleDeletePlace(id) {
+    await deletePlace(id)
+    const data = await getAllPlaces()
+    setPlaces(data)
+}
+
+  
+
+
 
     return (
 
@@ -68,12 +78,13 @@ function Index({ user }) {
                                     <button className="icon">
                                         <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />  Like {place.likeCount}                        
                                     </button>
-                                    <button className="icon">
+                                    <button className="icon"
+                                     onClick={(e) => handleDeletePlace(place._id)}
+                                    >
                                     <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete                      
                                     </button>
                                     <button className="icon" 
                                     onClick={(e) => setCurrentId(place._id)}
-                                    // onClick={(e) =>console.log('hello')}
                                     >
                                     <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit                     
                                     </button>

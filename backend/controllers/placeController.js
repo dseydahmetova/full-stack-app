@@ -71,6 +71,18 @@ module.exports.update = async (req, res) => {
     }
 }
 
+
+module.exports.delete = async (req, res) => {
+    try {
+        await Place.findByIdAndDelete(req.params.id)
+        res.status(200).json({ message: 'deleted successfully' })
+    } catch(err) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
+
+
 module.exports.save = async (req, res) => {
     try {
         const place = await Place.findById(req.body.placeId)
