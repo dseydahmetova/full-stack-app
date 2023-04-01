@@ -21,6 +21,9 @@ router.put('/', placeControl.save)
 // create
 router.post('/', authorize, placeControl.create)
 
+// update
+router.put('/:id',  placeControl.update)
+
 //getSaved
 router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)
 

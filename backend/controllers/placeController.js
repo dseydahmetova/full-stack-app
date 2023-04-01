@@ -62,6 +62,15 @@ module.exports.create = async (req, res) => {
     }
 }
 
+module.exports.update = async (req, res) => {
+    try {
+        const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.status(200).json(updatedPlace)
+    } catch(err) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
 module.exports.save = async (req, res) => {
     try {
         const place = await Place.findById(req.body.placeId)
