@@ -81,3 +81,13 @@ export async function savePlace( userId, placeId) {
         console.log(err)
     }
 }
+
+export async function getSearchPlace( searchQuery) {
+    const axios = customAxiosWithAuth()
+    try {
+        const response = await axios.get(`/places/search?searchQuery=${searchQuery || 'none'}`)
+        return response.data
+    } catch(err) {
+        console.log(err)
+    }
+}

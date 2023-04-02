@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import StarRating from "../../components/StarRating"
 import { getAllPlaces, deletePlace, likePlace } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
-import { Paper } from '@material-ui/core'
+import { AppBar, Textfield, Button } from '@material-ui/core'
 import New from './New'
-import { savePlace } from "../../services/placeService"
+import { savePlace, getSearchPlace } from "../../services/placeService"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
+function useQuery(){
+    return new URLSearchParams(useLocation().search)
+}
 
 
 function Index({ user }) {
@@ -15,6 +20,12 @@ function Index({ user }) {
     const [places, setPlaces] = useState([])
     const [currentId, setCurrentId] = useState(null);
     const [savedPlaces, setSavedPlaces] = useState([]);
+    const [search, setSearch] = useState('')
+    const query = useQuery();
+    const history = useNavigate();
+const page = query.get('page') || 1;
+const searchQuery =query.get('searchQuery')
+
 
     useEffect(() => {
         async function loadData() {
@@ -46,24 +57,44 @@ function Index({ user }) {
     //     return savedPlaces.id === id
     // }
 
+    function handleKeyPress(e){
+        //13 means entry
+        if(e.key === 13){
+searchPlace()
+        }
+    }
+
+    async function searchPlace(){
+        //trim removes white spaces
+        if(search.trim()) {
+         const data = await getSearchPlace(search)
+console.log('result',data)
+            // history.push(`/places/search?searchQuery=${search || 'none'}`);
+        }else{
+            history.push('/')
+        }
+    }
+
     return (
 
         <div id="main">
             <div className="card-title">
-                {/* <div className="container">
-        <div className="left-container"> */}
+             
                 <h1 className="welcome-msg">Discover story-worthy travel moments</h1>
                 <div className="searchbar">
-                    <input type="text" /></div>
+                    <input 
+                    name = "search" 
+                    placeholder="search" 
+                    type="text" 
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyPress = {handleKeyPress}
+                    />
+                    <button onClick={searchPlace}>Search</button>
+                    </div>
                 <div className="clip"></div>
             </div>
-            {/* <div className="right-container"> */}
-            {/* <img src="https://assets.thedyrt.com/next/public/assets/images/homepage/home_hero.png" alt="homeimg" /> */}
-
-            {/* </div> */}
-            {/* </div> */}
-
-            {/* </div> */}
+          
             <div className="Home">
                 <div className="places">
                     {places.map((place, index) =>
@@ -118,9 +149,9 @@ function Index({ user }) {
                 </div>
                 <div className="form">
                     <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
-                    <Paper elevation={6}>
+                    <div elevation={6}>
                         <Pagination />
-                    </Paper>
+                    </div>
                 </div>
             </div>
 

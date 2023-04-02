@@ -134,20 +134,24 @@ module.exports.showSavedPlaces = async (req, res) => {
 }
 
 
-// module.exports.save = async (req, res) => {
-//     try {
-//         const place = await Place.findById(req.body) 
-//         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-//             $push: {
-//                 savedPlaces: place._id
-//             }
-//         }, { new: true })
-//         res.status(200).json(updatedUser)
-//     } catch(err) {
-//         res.status(400).json({ error: err.message })
-//     }
-// }
+//search place
+//query ->  /places?page=1 -> page = 1
 
+module.exports.search = async (req, res) => {
+   const {searchQuery} = req.query
+   
+    try {
+        
+        // i used to lowercase search query  
+               const fullName = new RegExp(searchQuery, 'i') 
+          const place = await Place.find({fullName})    
+        res.status(200).json({place})
+       
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+   
+}
 
 
 // EXTRA CODE FOR COMMENTS
