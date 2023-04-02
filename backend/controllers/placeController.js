@@ -2,7 +2,7 @@ const Place = require('../models/placeModel')
 const User = require('../models/userModel')
 const axios = require('axios')
 
-
+//Seed the places from api to DB
 module.exports.seed = async (req, res) => {
 
     const key = 'Wkbi1lT4S7DeLlieN07oVPk4c3n8rycPXNhpbb3W'
@@ -34,7 +34,7 @@ module.exports.seed = async (req, res) => {
     res.redirect('/places')
 }
 
-
+// get all places from DB
 module.exports.index = async (req, res) => {
     try {
         const places = await Place.find()
@@ -44,6 +44,7 @@ module.exports.index = async (req, res) => {
     }
 }
 
+//show place by id
 module.exports.show = async (req, res) => {
     try {
         const place = await Place.findById(req.params.id)
@@ -53,6 +54,7 @@ module.exports.show = async (req, res) => {
     }
 }
 
+//create a new place
 module.exports.create = async (req, res) => {
     try {
         const place = await Place.create(req.body)
@@ -62,6 +64,7 @@ module.exports.create = async (req, res) => {
     }
 }
 
+//update a place if changes made
 module.exports.update = async (req, res) => {
     try {
         const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -71,7 +74,7 @@ module.exports.update = async (req, res) => {
     }
 }
 
-
+//delete the place
 module.exports.delete = async (req, res) => {
     try {
         await Place.findByIdAndDelete(req.params.id)
@@ -81,7 +84,7 @@ module.exports.delete = async (req, res) => {
     }
 }
 
-
+//count the likes for certain place
 module.exports.like = async (req, res) => {
     try {
         const place = await Place.findById(req.params.id) 
@@ -93,24 +96,21 @@ module.exports.like = async (req, res) => {
 }
 
 
-
-
+//save the certain place
 module.exports.save = async (req, res) => {
     try {
         const place = await Place.findById(req.body.placeId)
-        // const user = await User.findById(req.body.userId)
-        // user.savedPlaces.push(place)
-        // await user.save()
-        await User.findById(req.body.userId, {
+        const user = await User.findByIdAndUpdate(req.body.userId, {
             $push:{
-                savedPlaces: place._id
-            }
+                        savedPlaces: place._id
+                    }
         })
-        res.status(200).json({savedPlaces})
+        res.status(200).json({savedPlaces: user.savedPlaces})
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
 }
+
 
 module.exports.getSavedPlaces = async (req, res) => {
     try {
@@ -132,6 +132,22 @@ module.exports.showSavedPlaces = async (req, res) => {
         res.status(404).json({ error: err.message })
     }
 }
+
+
+// module.exports.save = async (req, res) => {
+//     try {
+//         const place = await Place.findById(req.body) 
+//         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+//             $push: {
+//                 savedPlaces: place._id
+//             }
+//         }, { new: true })
+//         res.status(200).json(updatedUser)
+//     } catch(err) {
+//         res.status(400).json({ error: err.message })
+//     }
+// }
+
 
 
 // EXTRA CODE FOR COMMENTS

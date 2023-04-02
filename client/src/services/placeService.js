@@ -72,3 +72,12 @@ export async function updatePlace(id, place) {
         console.log(err.message)
     }
 }
+
+export async function savePlace( userId, placeId) {
+    const axios = customAxiosWithAuth()
+    try {
+        await axios.put(`/places`, {userId, placeId})
+    } catch(err) {
+        console.log(err)
+    }
+}

@@ -38,7 +38,8 @@ function Register({ setUser }) {
 
     return ( 
         <div className="SignUpform">
-            <h1>Register</h1>
+        
+            <h1>Sign Up</h1>
             <div className="form-body">
             <form onSubmit= {handleSubmit}>
                 <div className="username">

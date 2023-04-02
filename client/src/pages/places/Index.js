@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import StarRating from "../../components/StarRating"
 import { getAllPlaces, deletePlace, likePlace } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
 import { Paper } from '@material-ui/core'
 import New from './New'
+import { savePlace } from "../../services/placeService"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -13,6 +14,7 @@ function Index({ user }) {
 
     const [places, setPlaces] = useState([])
     const [currentId, setCurrentId] = useState(null);
+    const [savedPlaces, setSavedPlaces] = useState([]);
 
     useEffect(() => {
         async function loadData() {
@@ -21,24 +23,28 @@ function Index({ user }) {
         }
         loadData()
     }, [currentId])
-    // console.log(places)
- console.log('id', currentId)
-   
- 
- async function handleDeletePlace(id) {
-    await deletePlace(id)
-    const data = await getAllPlaces()
-    setPlaces(data)
-}
-
-async function handleLikePlace(id){
-   await likePlace(id)
-   const data = await getAllPlaces()
-   setPlaces(data)
-}
-  
 
 
+    async function handleDeletePlace(id) {
+        await deletePlace(id)
+        const data = await getAllPlaces()
+        setPlaces(data)
+    }
+
+    async function handleLikePlace(id) {
+        await likePlace(id)
+        const data = await getAllPlaces()
+        setPlaces(data)
+    }
+
+    async function addToFavorite(userId, placeId) {
+        const savedPlace = await savePlace(userId, placeId)
+        setSavedPlaces(savedPlace)
+    }
+
+    // function isPlaceSaved(id) {
+    //     return savedPlaces.id === id
+    // }
 
     return (
 
@@ -79,24 +85,30 @@ async function handleLikePlace(id){
                                     <p>{place.address}, {place.city}, {place.stateCode}</p>
                                     <p>{place.description}</p>
                                     <div>
-                                    <StarRating />
-                                    <button className="icon" 
-                                     onClick={(e) => handleLikePlace(place._id)}
-                                
+                                        <StarRating />
+                                        <button className="icon"
+                                            onClick={(e) => handleLikePlace(place._id)}
+
+                                        >
+                                            <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> &nbsp; Like &nbsp; {place.likeCount}
+                                        </button>
+                                        <button className="icon"
+                                            onClick={(e) => handleDeletePlace(place._id)}
+                                        >
+                                            <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete
+                                        </button>
+                                        <button className="icon"
+                                            onClick={(e) => setCurrentId(place._id)}
+                                        >
+                                            <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit
+                                        </button>
+                                    </div> <button
+                                        onClick={() => { addToFavorite(user.id, place._id) }}
+                                        // disabled={isPlaceSaved(place._id)}
                                     >
-                                        <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />  Like {place.likeCount}                        
+                                        {/* {isPlaceSaved(places._id) ? "Saved" : "Save"} */}
+                                        Save
                                     </button>
-                                    <button className="icon"
-                                     onClick={(e) => handleDeletePlace(place._id)}
-                                    >
-                                    <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete                      
-                                    </button>
-                                    <button className="icon" 
-                                    onClick={(e) => setCurrentId(place._id)}
-                                    >
-                                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit                     
-                                    </button>
-</div>
                                 </div>
                             </div>
                         </div>

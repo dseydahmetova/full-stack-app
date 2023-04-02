@@ -52,3 +52,4 @@ export async function updateUser(id, user) {
         console.log(err.message)
     }
 }
+

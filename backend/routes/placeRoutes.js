@@ -16,6 +16,9 @@ router.get('/', placeControl.index)
 // create
 router.post('/', placeControl.create)
 
+//save
+router.put('/', placeControl.save)
+
 // seed 
 router.get('/seed', placeControl.seed)
 
@@ -28,8 +31,10 @@ router.put('/:id',  placeControl.update)
 // show
 router.get('/:id', placeControl.show)
 
-//likes
+//like
 router.put('/:id/likePlace', placeControl.like)
+
+
 
 
 

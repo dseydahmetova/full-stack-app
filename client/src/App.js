@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { userInfo } from './services/userService';
 import Navbar from './components/Navbar';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 
 import Register from './pages/users/Register';
 import Login from './pages/users/Login';
@@ -57,7 +57,7 @@ function App() {
      <Navbar user={user} setUser={setUser} />
       <Routes>
       <Route path='/' element={<Navigate to='/places'/>} />
-      <Route path='/places' element={<IndexPlace user={loggedIn} />} />
+      <Route path='/places' element={<IndexPlace user={user} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
       <Route path='/places/search' element={<IndexPlace user={user} />} />
       {loggedIn ?
@@ -75,7 +75,7 @@ function App() {
          </>
       }
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }

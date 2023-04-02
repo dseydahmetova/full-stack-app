@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import StarRating from "../../components/StarRating";
 import { getPlace } from "../../services/placeService";
-import { createFavForUser } from "../../services/userService"
 import axios from 'axios'
 
 
@@ -65,17 +64,19 @@ function Show({ user }) {
     }
 
 
-    async function addToFavorite(placeId) {
-        try {
-            const response = await axios.put(
-                `http://localhost:8080/places}`, {
-                placeId,
-                userId
-            })
-            setSavedPlaces(response.data.savedPlaces)
-        } catch (err) {
-            console.log(err)
-        }
+    // async function addToFavorite(placeId) {
+       
+        // try {
+        //     const response = await axios.put(
+        //         `http://localhost:8080/places}`, {
+        //         placeId,
+        //         userId
+        //     })
+        //   const savedPlace = await savePlace(placeId)
+        //   setSavedPlaces(savedPlace)
+        // } catch (err) {
+        //     console.log(err)
+        // }
 
         //         e.preventDefault()
 
@@ -114,10 +115,9 @@ function Show({ user }) {
         // ]);
 
 
-    };
+    // };
 
 
-    const isPlaceSaved = (id) => savedPlaces.includes(id)
     return (
 
         <div id="place-details">
@@ -179,26 +179,18 @@ function Show({ user }) {
                                 </details>
                             } */}
 
-                            <div className="buttons">
+                            <div className="btn-group">
                                 {places.user === user.username &&
                                     <>
                                         <button onClick={handleDeletePost}>Delete</button>
                                         <Link to={`/places/${places._id}/edit`}>
                                             <button>Edit</button>
                                         </Link>
+                                       
                                     </>
                                 }
 
                                 <div>
-
-                                    <button
-                                        onClick={() => { addToFavorite(places._id) }}
-                                        disabled={isPlaceSaved(places._id)}
-                                    >
-                                        {isPlaceSaved(places._id) ? "Saved" : "Save"}
-                                    </button>
-
-
 
                                     <button type="button" onClick={goBack}>Back</button>
 
