@@ -2,8 +2,7 @@ export default function Footer() {
     return (
   
       <nav className="footer">
-        <p className="footer-text">Copyright © {new Date().getFullYear()} - By continuing past this page, you agree to our
-          Terms of Use.</p>
+        <p className="footer-text">Copyright © {new Date().getFullYear()} - Created by Dana.</p>
         <div>
           <a href="#">
             <svg

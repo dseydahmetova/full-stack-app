@@ -36,9 +36,15 @@ module.exports.seed = async (req, res) => {
 
 // get all places from DB
 module.exports.index = async (req, res) => {
+    const {page} = req.query
     try {
-        const places = await Place.find()
-        res.status(200).json(places)
+        const LIMIT = 8;
+        // get the starting index of every page
+        const startIndex = (Number(page) - 1) * LIMIT
+        const total = await Place.countDocuments({})
+//id = -1 the latest post, limit per page and skip previos pages
+        const places = await Place.find().sort({_id: -1}).limit(LIMIT).skip(startIndex)
+        res.status(200).json({data: places, currentPage: Number(page), totalnumberOfPages: Math.ceil(total / LIMIT)})
     } catch(err) {
         res.status(400).json({ error: err.message })
     }
@@ -141,7 +147,6 @@ module.exports.search = async (req, res) => {
    const {searchQuery} = req.query
    
     try {
-        
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
           const place = await Place.find({fullName})    

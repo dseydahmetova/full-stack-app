@@ -3,34 +3,35 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 import StarRating from "../../components/StarRating"
 import { getAllPlaces, deletePlace, likePlace } from "../../services/placeService";
 import Pagination from '../../components/Pagination'
-import { AppBar, Textfield, Button } from '@material-ui/core'
 import New from './New'
 import { savePlace, getSearchPlace } from "../../services/placeService"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function useQuery(){
+function useQuery() {
     return new URLSearchParams(useLocation().search)
 }
 
 
 function Index({ user }) {
-
-    const [places, setPlaces] = useState([])
+//before [] -> now {places:[]}
+    const [places, setPlaces] = useState({})
+    console.log("this is index", places)
     const [currentId, setCurrentId] = useState(null);
     const [savedPlaces, setSavedPlaces] = useState([]);
     const [search, setSearch] = useState('')
     const query = useQuery();
-    const history = useNavigate();
-const page = query.get('page') || 1;
-const searchQuery =query.get('searchQuery')
+    const navigate = useNavigate();
+    const page = query.get('page') || 1;
+    const searchQuery = query.get('searchQuery')
 
 
     useEffect(() => {
         async function loadData() {
+           
             const data = await getAllPlaces()
-            setPlaces(data)
+            setPlaces(data.places)
         }
         loadData()
     }, [currentId])
@@ -38,14 +39,14 @@ const searchQuery =query.get('searchQuery')
 
     async function handleDeletePlace(id) {
         await deletePlace(id)
-        const data = await getAllPlaces()
-        setPlaces(data)
+        // const data = await getAllPlaces()
+        // setPlaces(data)
     }
 
     async function handleLikePlace(id) {
         await likePlace(id)
-        const data = await getAllPlaces()
-        setPlaces(data)
+        // const data = await getAllPlaces()
+        // setPlaces(data)
     }
 
     async function addToFavorite(userId, placeId) {
@@ -57,46 +58,50 @@ const searchQuery =query.get('searchQuery')
     //     return savedPlaces.id === id
     // }
 
-    function handleKeyPress(e){
-        //13 means entry
-        if(e.key === 13){
-searchPlace()
+    function handleKeyPressed(e){
+        if (e.key === 'Enter') {
+            searchPlace()
+            // console.log('enter')
         }
     }
 
-    async function searchPlace(){
+    async function searchPlace() {
         //trim removes white spaces
-        if(search.trim()) {
-         const data = await getSearchPlace(search)
-console.log('result',data)
-            // history.push(`/places/search?searchQuery=${search || 'none'}`);
-        }else{
-            history.push('/')
+        if (search.trim()) {
+           const searchPlace =  await getSearchPlace(search)
+           navigate(`/places/search?searchQuery=${search || 'none'}`);
+        if(searchPlace){
+            setPlaces(searchPlace.places)
+        }  
+        }else {
+            navigate('/')
         }
+        
     }
-
     return (
 
         <div id="main">
             <div className="card-title">
-             
+
                 <h1 className="welcome-msg">Discover story-worthy travel moments</h1>
                 <div className="searchbar">
-                    <input 
-                    name = "search" 
-                    placeholder="search" 
-                    type="text" 
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyPress = {handleKeyPress}
+                    <input
+                        name="search"
+                        placeholder="search"
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown = {handleKeyPressed}
                     />
                     <button onClick={searchPlace}>Search</button>
-                    </div>
+                </div>
                 <div className="clip"></div>
             </div>
-          
+
             <div className="Home">
+            {!places.length ? "places": (
                 <div className="places">
+              
                     {places.map((place, index) =>
 
                         <div className="card" key={index}>
@@ -135,7 +140,7 @@ console.log('result',data)
                                         </button>
                                     </div> <button
                                         onClick={() => { addToFavorite(user.id, place._id) }}
-                                        // disabled={isPlaceSaved(place._id)}
+                                    // disabled={isPlaceSaved(place._id)}
                                     >
                                         {/* {isPlaceSaved(places._id) ? "Saved" : "Save"} */}
                                         Save
@@ -147,11 +152,14 @@ console.log('result',data)
                     )}
 
                 </div>
+            )}
                 <div className="form">
                     <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
-                    <div elevation={6}>
-                        <Pagination />
-                    </div>
+                    {(!searchQuery) && (
+                    <div>
+                        <Pagination page = {page}/>
+                    </div> 
+                    )}
                 </div>
             </div>
 

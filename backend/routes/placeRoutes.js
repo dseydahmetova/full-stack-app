@@ -7,9 +7,6 @@ const placeControl = require('../controllers/placeController')
 const { authorize, confirmUserAccess } = require('../middleware/authMiddleware')
 
 
-//search
-router.get('/search', placeControl.search)
-
 
 // index
 router.get('/', placeControl.index)
@@ -22,6 +19,10 @@ router.put('/', placeControl.save)
 
 // seed 
 router.get('/seed', placeControl.seed)
+
+//search
+router.get('/search', placeControl.search)
+
 
 
 // delete
