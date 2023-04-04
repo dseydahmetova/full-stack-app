@@ -1,44 +1,33 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { getAllPlaces, getSavedPlacesId, deletePlace, likePlace, savePlace } from "../../services/placeService";
 import StarRating from "../../components/StarRating"
-import { getAllPlaces, deletePlace, likePlace } from "../../services/placeService";
-import Pagination from '../../components/Pagination'
-import New from './New'
-import { savePlace, getSearchPlace } from "../../services/placeService"
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search)
-}
-
-
-function Index({ user }) {
-//before [] -> now {places:[]}
+export default function Index({ user, currentId, setCurrentId }) {
     const [places, setPlaces] = useState({})
-    console.log("this is index", places)
-    const [currentId, setCurrentId] = useState(null);
     const [savedPlaces, setSavedPlaces] = useState([]);
-    const [search, setSearch] = useState('')
-    const query = useQuery();
-    const navigate = useNavigate();
-    const page = query.get('page') || 1;
-    const searchQuery = query.get('searchQuery')
-
 
     useEffect(() => {
         async function loadData() {
-           
             const data = await getAllPlaces()
             setPlaces(data.places)
         }
+
+async function loadSavedPlaces() {
+const data = await getSavedPlacesId(user.id)
+setSavedPlaces(data.savedPlaces)
+}
+
         loadData()
+        loadSavedPlaces()
     }, [currentId])
 
 
     async function handleDeletePlace(id) {
-        await deletePlace(id)
+        const data = await deletePlace(id)
+        setPlaces(data.places.filter(place => place._id !==id))
         // const data = await getAllPlaces()
         // setPlaces(data)
     }
@@ -51,55 +40,19 @@ function Index({ user }) {
 
     async function addToFavorite(userId, placeId) {
         const savedPlace = await savePlace(userId, placeId)
-        setSavedPlaces(savedPlace)
+        console.log("addtofav", savedPlace)
+        setSavedPlaces(savedPlace.data)
     }
-
+// console.log("save", savedPlaces)
     // function isPlaceSaved(id) {
-    //     return savedPlaces.id === id
+        const isPlaceSaved = (id) => savedPlaces.includes(id);
     // }
 
-    function handleKeyPressed(e){
-        if (e.key === 'Enter') {
-            searchPlace()
-            // console.log('enter')
-        }
-    }
 
-    async function searchPlace() {
-        //trim removes white spaces
-        if (search.trim()) {
-           const searchPlace =  await getSearchPlace(search)
-           navigate(`/places/search?searchQuery=${search || 'none'}`);
-        if(searchPlace){
-            setPlaces(searchPlace.places)
-        }  
-        }else {
-            navigate('/')
-        }
-        
-    }
-    return (
 
-        <div id="main">
-            <div className="card-title">
-
-                <h1 className="welcome-msg">Discover story-worthy travel moments</h1>
-                <div className="searchbar">
-                    <input
-                        name="search"
-                        placeholder="search"
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown = {handleKeyPressed}
-                    />
-                    <button onClick={searchPlace}>Search</button>
-                </div>
-                <div className="clip"></div>
-            </div>
-
-            <div className="Home">
-            {!places.length ? "places": (
+  return (
+    <div className="home-left">
+        {!places.length ? "No places found": (
                 <div className="places">
               
                     {places.map((place, index) =>
@@ -116,56 +69,50 @@ function Index({ user }) {
                             </Link>
 
                             <div className="card-body">
-                                <div className="card-text">
 
-                                    <p>{place.address}, {place.city}, {place.stateCode}</p>
-                                    <p>{place.description}</p>
-                                    <div>
-                                        <StarRating />
-                                        <button className="icon"
+                                    <h5 >{place.address}, {place.city}, {place.stateCode}</h5>
+                                    <p className="text-overflow">{place.description}</p>
+                                    <StarRating /> 
+                                    <div className="card-btm">
+                                    <div className="btn-group">
+                                        
+                                        <button className="icon-btn"
                                             onClick={(e) => handleLikePlace(place._id)}
-
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> &nbsp; Like &nbsp; {place.likeCount}
                                         </button>
-                                        <button className="icon"
+                                        <button className="icon-btn"
                                             onClick={(e) => handleDeletePlace(place._id)}
                                         >
-                                            <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete
+                                           <FontAwesomeIcon icon="fa-solid fa-trash" /> &nbsp; Delete &nbsp;
                                         </button>
-                                        <button className="icon"
+                                        <button className="icon-btn"
                                             onClick={(e) => setCurrentId(place._id)}
                                         >
-                                            <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit
+                                            <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />&nbsp; Edit &nbsp;
                                         </button>
-                                    </div> <button
+                                        <button className="icon-btn"
                                         onClick={() => { addToFavorite(user.id, place._id) }}
-                                    // disabled={isPlaceSaved(place._id)}
-                                    >
-                                        {/* {isPlaceSaved(places._id) ? "Saved" : "Save"} */}
-                                        Save
+                                    disabled={isPlaceSaved(place._id)}
+                                    > 
+                                    <FontAwesomeIcon icon="fa-solid fa-heart" /> &nbsp;&nbsp;
+                                        {isPlaceSaved(place._id) ? 'Saved' : 'Save'}
+                                        &nbsp;
+                                       
                                     </button>
+                                    </div> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                      
 
                     )}
 
                 </div>
             )}
-                <div className="form">
-                    <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
-                    {(!searchQuery) && (
-                    <div>
-                        <Pagination page = {page}/>
-                    </div> 
-                    )}
-                </div>
-            </div>
-
-        </div>
-
-    )
+  
+    </div>
+  )
 }
+    
 
-export default Index

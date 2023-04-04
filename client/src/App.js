@@ -18,7 +18,7 @@ import Login from './pages/users/Login';
 import Profile from './pages/users/save';
 import Settings from './pages/users/Edit'
 
-import IndexPlace from './pages/places/Index';
+import Home from './pages/places/Home';
 import ShowPlace from './pages/places/Show';
 
 import { getAPIPlaces } from "../src/services/placeService"
@@ -51,15 +51,14 @@ function App() {
 
 
   let loggedIn = user.username
-
   return (
     <div className="App">
      <Navbar user={user} setUser={setUser} />
       <Routes>
       <Route path='/' element={<Navigate to='/places'/>} />
-      <Route path='/places' element={<IndexPlace user={user} />} />
+      <Route path='/places' element={<Home user={user} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
-      <Route path='/places/search' element={<IndexPlace user={user} />} />
+      <Route path='/places/search' element={<Home user={user} />} />
       {loggedIn ?
       <>
                  <Route path='/saved-places' element={<Profile user={user} />} />

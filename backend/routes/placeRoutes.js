@@ -23,8 +23,6 @@ router.get('/seed', placeControl.seed)
 //search
 router.get('/search', placeControl.search)
 
-
-
 // delete
 router.delete('/:id', placeControl.delete)
 
@@ -37,31 +35,14 @@ router.get('/:id', placeControl.show)
 //like
 router.put('/:id/likePlace', placeControl.like)
 
+// Get id of saved place
+router.get("/savedPlaces/ids/:id", placeControl.getSavedPlacesIds)
 
-
-
-
-
-
-
-//save
-router.put('/', placeControl.save)
-
-
-
-
-
-
-
-
-
-
-
-//getSaved
-router.get("/savedPlaces/ids/:userId", placeControl.getSavedPlaces)
+// Get saved place
+router.get("/savedPlaces/:id", placeControl.getSavedPlaces)
 
 //showSaved
-router.get("/savedPlaces/:userId", placeControl.showSavedPlaces)
+router.get("/savedPlaces/:id", placeControl.showSavedPlaces)
 
 
 

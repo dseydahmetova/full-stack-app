@@ -37,15 +37,46 @@ function Register({ setUser }) {
     }
 
     return ( 
-        <div className="SignUpform">
-        
-            <h1>Sign Up</h1>
+        <div className="SignUpform Signform">
+          <div className='signLeftContent'>
+                <img className="signImg" src={require('../../images/adir.jpg')} alt='event img' />
+                <div className='imgText'>
+                    <h1>Welcome</h1>
+                    <p>Wondering how to plan your dream trip? We're here to help.
+                    </p>
+                </div>
+            </div>
+            
             <div className="form-body">
+            <h1>Sign Up</h1>
             <form onSubmit= {handleSubmit}>
+            <div className="reg-name">
+                <label htmlFor="nm" className="form__label" >Name:</label>
+                    <input 
+                    className="form__input" 
+                    type="text" 
+                    id="nm" 
+                    name = "name"
+                    onChange={handleChange}
+                    value={form.name}
+                    validate="required:true"
+                    />
+                    </div>
+                    <div>
+                     <label htmlFor="ln" className="form__label" >Last Name:</label>
+                    <input 
+                    className="form__input" 
+                    type="text" 
+                    id="ln" 
+                    name = "lastname"
+                    onChange={handleChange}
+                    value={form.lastname}
+                    validate="required:true"
+                    />
+               </div>
                 <div className="username">
                 <label htmlFor="user" className="form__label" >Username:</label>
                     <input 
-                    // required pattern="[A-Za-z]{3,}"
                     className="form__input" 
                     type="text" 
                     id="user" 
@@ -65,7 +96,7 @@ function Register({ setUser }) {
                     value={form.email} 
                     className="form__input" 
                     validate="required:true"
-                    pattern=".+@globex\.com"
+                    // pattern=".+@globex\.com"
                      />
                 </div>
                 <div className="password">

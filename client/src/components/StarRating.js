@@ -7,7 +7,7 @@ export default function StarRating () {
     const [hover, setHover] = useState(null);
 
     return (
-      <div >
+      <div className="star-review">
         {[...Array(5)].map((star, index) => {
             const ratingValue = index + 1
             return (
@@ -28,7 +28,7 @@ export default function StarRating () {
                 </label>
         )})
         }
-        <p>The rating is {rating}.</p>
+        {/* <p>The rating is {rating}.</p> */}
         </div>
        
      

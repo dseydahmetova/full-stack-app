@@ -1,11 +1,27 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100%;
+  min-width: 100%;
+  padding-bottom: 6.74rem;
+  box-sizing: inherit;
+  overflow: auto;
 }
+
+.App{
+  min-height: 100%;
+  min-width: 100%;
+}
+
 
 .nav {
   width: 100%;
@@ -15,37 +31,70 @@ body {
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
   transition: transform 0.2s;
   background: white;
-  font-size: 30px;
+  font-size: 25px;
+  justify-content: 'space-between';
+  color: darkgreen;
+  font-weight: bold;
 }
 
-/* .nav-hidden {
+.nav button{
+  background-color: #397c70;
+  color: white;
+  transition-duration: 0.4s;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.nav-hidden {
   transform: translateY(cac(-1 * var(--nav-height)));
-} */
+}
 
-/* .SignUpform {
-  background-color: white;
-  border-radius: 5px;
-  width: 550px;
-  margin: 20px auto;
-  padding: 20px;
-} */
+.travel-logo{
+  /* border-radius: 20%; */
+  height: 120px;
+  width: 300px;
+}
 
-/* .signLeftContent {
-  position: relative;
-  color: #f9f9fb;
-  font-weight: bold;
-} */
+.searchbar input[type="text"]{
+  border-radius: 10px;
+  margin-top: 50px;
+  padding: 16px;
+  width: 30%;
+  font-size: 20px;
+} 
 
-/* .form-body {
-  text-align: left;
-  padding: 20px 10px;
-} */
+.searchbar button{
+  background-color:white;
+  color: darkgreen;
+  margin: 40px;
+  font-size: 20px;
+  height: 55px;
+} 
 
+.searchbar button:hover{
+  background-color:#cb6116;
+  color: darkgreen;
+}
+/* .pagination {
+  border-radius: 10px;
+    margin-top: 1rem;
+    padding: 16px;
+}  */
 
-
-.btn {
+.icon-btn {
  background-color: #397c70;
-color: white
+  color: white;
+  transition-duration: 0.4s;
+  width: 90px;
+  font-size: 12px;
+  height: 30px;
+  margin: 5px
+}
+
+button:hover {
+  background-color: rgb(255, 255, 255); 
+  color: darkgreen;
+  border: 2px solid darkgreen;
 }
 
 .signBtn {
@@ -60,6 +109,7 @@ color: white
 label {
   text-align: left;
   margin: 1rem 1rem;
+  font-size: 20px;
 }
 
 input,
@@ -67,26 +117,22 @@ textarea,
 select {
   min-height: 3rem;
   width: 100%;
-}
-
-.SignUpform {
-  background-color: white;
-  border-radius: 5px;
-  width: 550px;
-  margin: 20px auto;
-  padding: 20px;
+  border-radius: 8px;
+  margin:0;
+  padding:0;
 }
 
 .signImg {
   border-radius: 10px;
-  width: 400px;
-  height: 450px;
+  width: 500px;
+  height: 650px;
 }
 
 .signLeftContent {
   position: relative;
   color: #f9f9fb;
   font-weight: bold;
+  font-size: 24px;
 }
 
 .imgText {
@@ -97,16 +143,16 @@ select {
 
 .Signform {
   background-color: #79a6a6 ;
-  border-radius: 5px;
   min-width: 650px;
-  width: 32%;
-  height: 500px;
+  width: 40%;
+  height: 720px;
   margin: 100px auto;
   padding: 20px;
   border: solid 1px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 50px;
+  font-size: 20px;
 }
 
 .signup {
@@ -114,38 +160,155 @@ select {
   cursor: pointer;
 }
 
-/* Main Page */
 
 #main{
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .Home{
-  display: flex;
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+  /* grid-template-columns: 1fr 3fr 1fr; */
+  padding-top: 40px;
+  justify-content:space-between;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 100px;
+}
+
+/* Edit/Create Form */
+.home-right{
+ margin-top: 80px;
+ display: 'flex';
 }
 
 .form{
   background-color: #397c70;
-height: 500px;
+  border-radius: 8px;
+ min-width: 50%;
+ max-width: 80%;
+/* height: 80%; */
 display: flex;
 flex-direction: column;
-  padding-top: 50px;
   justify-content: center;
   gap: 30px;
+  align-items: center;
+}
+
+.form form {
+  margin: 30px 0;
+  width: 85%;
+  font-size: 16px;
+}
+
+.form h4{
+  color: rgb(251, 249, 246);
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form input, textarea{
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+input:hover{
+    box-shadow: 0 0 0 2px #cb6116;
+    border: 1px solid rgb(219, 129, 3);
+}
+
+.form button{
+  width: 100%;
+  background-color:rgb(219, 129, 3);
+  color: rgb(100, 53, 0);
+  margin-top: 20px;
+  height: 40px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.text-overflow{
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.star-review{
+  margin-bottom: 40px;
 }
 
 .places{
+  margin-top: 0;
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  padding-top: 50px;
+  grid-template-columns: repeat(3, auto);
+  padding-top: 30px;
   justify-content: center;
   gap: 30px;
 }
 
-.card{
+.card {
+  margin-top: 50px;
+  width: 27em;
   transition: box-shadow .3s;
 }
+
+.card-body{
+  font-size: 16px;
+  position: relative;
+  margin:0;
+  padding: 0;
+}
+
+.card-body h5{
+  text-decoration: underline;
+  color:#ad4b04
+}
+
+.card-btm{
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  bottom:10px;
+  margin:0;
+}
+
+.card img{
+  height: 22rem;
+}
+
+.welcome-msg{
+  color: white;
+  margin-top: 50px;
+}
+
+.card-title{
+  text-align: center;
+  /* height: 200px; */
+  padding: 50px;
+  position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    background: 
+    /* rgb(55, 99, 55); */
+    200px/200px url(https://assets.thedyrt.com/next/public/assets/images/NoiseOverlay_Dark@2x.png),linear-gradient(180deg,#397c70,#1a4e3d 82.11%);
+    height: 300px;
+    padding: 0 3rem;
+}
+
 .card:hover{
   box-shadow: 20px 20px 20px rgba(78, 78, 218, 0.2); 
 }
@@ -157,6 +320,27 @@ flex-direction: column;
 
 .card-top{
 position: relative;
+}
+
+.btn-group{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.welcome-user{
+ margin: 5px;
+}
+
+.user-img{
+  color: white;
+    background: purple;
+   border-radius: 50%;
+   margin: 10px;
+   width:50px;
+   height:50px;
+   text-align: center;
 }
 
 .placeName{
@@ -203,40 +387,6 @@ margin: 10px;
     width: 40px;
 }
 
-.card {
-  margin-top: 50px;
-  width: 25rem;
-}
-
-.card img{
-  height: 20rem;
-}
-
-.card-text{
-  height: 20rem;
-}
-
-.welcome-msg{
-  color: white;
-  margin-top: 50px;
-}
-
-.card-title{
-  text-align: center;
-  /* height: 200px; */
-  padding: 50px;
-  position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    width: 100vw;
-    background: 
-    /* rgb(55, 99, 55); */
-    200px/200px url(https://assets.thedyrt.com/next/public/assets/images/NoiseOverlay_Dark@2x.png),linear-gradient(180deg,#397c70,#1a4e3d 82.11%);
-    height: 300px;
-    padding: 0 3rem;
-}
 
 /* .card-title img {
   object-fit: contain;
@@ -312,21 +462,15 @@ input[type='radio'] {
 /* Footer */
 
 .footer {
-  margin-top:50px;
   width: 100%;
-  /* position: absolute; */
+  position: absolute; 
   padding: 25px;
   text-align: center;
-  /* height: '80px';  */
-  display: 'flex';
-  flex-direction: 'column';
   align-items: 'center';
   justify-content: 'center';
-  font-size:'1rem';
   bottom: 0;
   left: 0;
-  width: 100%;
-  background-color: #5e57ca;
+  background-color: #397c70;
 }
 
 .footer-text {
@@ -340,9 +484,7 @@ input[type='radio'] {
   white-space: nowrap;
 }
 
-/* Edit/Create Form */
-
-form{
-  padding: 20px;
-  /* height: 500px; */
+.searchInput:focus {
+  box-shadow: 0 0 0 5px #c5c5ee;
+  border: 1px solid rgb(219, 129, 3);
 }

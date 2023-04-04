@@ -38,7 +38,7 @@ module.exports.seed = async (req, res) => {
 module.exports.index = async (req, res) => {
     const {page} = req.query
     try {
-        const LIMIT = 8;
+        const LIMIT = 9;
         // get the starting index of every page
         const startIndex = (Number(page) - 1) * LIMIT
         const total = await Place.countDocuments({})
@@ -93,8 +93,13 @@ module.exports.delete = async (req, res) => {
 //count the likes for certain place
 module.exports.like = async (req, res) => {
     try {
+        if(!req.user._id){
+            return res.json({message: 'You must be logged in to like a place'})
+        }
         const place = await Place.findById(req.params.id) 
-        const updatedPlace = await Place.findByIdAndUpdate(req.params.id, {likeCount: place.likeCount + 1}, { new: true })
+const updatedPlace = await Place.findByIdAndUpdate(req.params.id, place, {likeCount: place.likeCount + 1}, { new: true })
+        // const updatedPlace = await Place.findByIdAndUpdate(req.params.id, place, { new: true })
+
         res.status(200).json(updatedPlace)
     } catch(err) {
         res.status(400).json({ error: err.message })
@@ -150,13 +155,41 @@ module.exports.search = async (req, res) => {
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
           const place = await Place.find({fullName})    
-        res.status(200).json({place})
+        res.status(200).json({data: place})
        
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
    
 }
+
+// get saved places ids by user id
+module.exports.getSavedPlacesIds = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)  
+       res.status(200).json({savedPlaces : user?.savedPlaces})
+   } catch(err) {
+       res.status(404).json({ error: err.message })
+   }
+    
+ }
+
+ // get saved places by 
+module.exports.getSavedPlaces = async (req, res) => {
+     try {
+          const user = await User.findById(req.params.id)
+          const savedPlaces = await Place.find({
+            _id: {$in: user.savedRecipes}
+          })
+          console.log(savedPlaces)    
+         res.status(200).json({savedPlaces})
+     } catch(err) {
+         res.status(404).json({ error: err.message })
+     }
+    
+ }
+
+
 
 
 // EXTRA CODE FOR COMMENTS
