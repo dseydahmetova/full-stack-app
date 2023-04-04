@@ -4,8 +4,8 @@ const axios = require('axios')
 
 //Seed the places from api to DB
 module.exports.seed = async (req, res) => {
-    // await Place.deleteMany({})
-    const key = process.env.REACT_APP_API_KEY
+
+    const key = 'Wkbi1lT4S7DeLlieN07oVPk4c3n8rycPXNhpbb3W'
     try{
         const response = await axios.get(
             `https://developer.nps.gov/api/v1/parks?&api_key=${key}`
@@ -13,6 +13,7 @@ module.exports.seed = async (req, res) => {
        
         const myPlace = response.data.data
      for(let i=0; i< myPlace.length; i++){
+     
                  const places = new Place({
                     image: myPlace[i].images[0]['url'],
                     fullName: myPlace[i].fullName,
@@ -23,18 +24,20 @@ module.exports.seed = async (req, res) => {
                     weatherInfo: myPlace[i].weatherInfo
                  })
                  await places.save()
-             }        
+             }
+       
+        // console.log("myplace", myPlace)
+        
     }catch(error){
         console.log(error)
     }
-    res.redirect('/places')
 }
 
 // get all places from DB
 module.exports.index = async (req, res) => {
     const {page} = req.query
     try {
-        const LIMIT = 6;
+        const LIMIT = 8;
         // get the starting index of every page
         const startIndex = (Number(page) - 1) * LIMIT
         const total = await Place.countDocuments({})
@@ -89,13 +92,8 @@ module.exports.delete = async (req, res) => {
 //count the likes for certain place
 module.exports.like = async (req, res) => {
     try {
-        if(!req.user._id){
-            return res.json({message: 'You must be logged in to like a place'})
-        }
         const place = await Place.findById(req.params.id) 
         const updatedPlace = await Place.findByIdAndUpdate(req.params.id, {likeCount: place.likeCount + 1}, { new: true })
-        // const updatedPlace = await Place.findByIdAndUpdate(req.params.id, place, { new: true })
-
         res.status(200).json(updatedPlace)
     } catch(err) {
         res.status(400).json({ error: err.message })
@@ -119,26 +117,32 @@ module.exports.save = async (req, res) => {
 }
 
 
-module.exports.getSavedPlaces = async (req, res) => {
+
+//if user saved the place, show it
+module.exports.showSavedPlaces = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
-        res.status(200).json({savedPlaces: user?.savedPlaces})
+        const user = await User.findById(req.params.id).populate('savedPlaces')
+        res.status(200).json({savedPlaces: user.savedPlaces})
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
 }
 
-module.exports.showSavedPlaces = async (req, res) => {
+
+//delete saved place
+module.exports.deleteSavedPlaces = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
-        const savedPlaces = await Place.find({
-            _id: {$in: user.savedRecipes}
+        const user = await User.findByIdAndUpdate(req.params.userId, {
+            $pull: {
+                savedPlaces: req.params.placeId
+            }
         })
-        res.status(200).json({savedPlaces})
+        res.status(200).json({message: 'deleted successfully'})
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
 }
+
 
 
 //search place
@@ -150,8 +154,7 @@ module.exports.search = async (req, res) => {
     try {
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
-          const place = await Place.find({fullName}) 
-          console.log(place)   
+          const place = await Place.find({fullName})    
         res.status(200).json({place})
        
     } catch(err) {
@@ -160,34 +163,13 @@ module.exports.search = async (req, res) => {
    
 }
 
-// get saved places ids by user id
-module.exports.getSavedPlacesIds = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)  
-       res.status(200).json({savedPlaces : user?.savedPlaces})
-   } catch(err) {
-       res.status(404).json({ error: err.message })
-   }
-    
- }
-
- // get saved places by 
+//first checking if the user already saved the place
 module.exports.getSavedPlaces = async (req, res) => {
-     try {
-          const user = await User.findById(req.params.id)
-          const savedPlaces = await Place.find({
-            _id: {$in: user.savedRecipes}
-          })
-          console.log(savedPlaces)    
-         res.status(200).json({savedPlaces})
-     } catch(err) {
-         res.status(404).json({ error: err.message })
-     }
-    
- }
-
-
-
-
-// EXTRA CODE FOR COMMENTS
-
+    try {
+        const user = await User.findById(req.params.id)
+       
+        res.status(200).json({savedPlaces: user?.savedPlaces})
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+}

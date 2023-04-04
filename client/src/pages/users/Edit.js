@@ -2,17 +2,15 @@ import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteUser, updateUser } from "../../services/userService"
 
-function Show({ user, setUser }) {
+function Edit({ user, setUser }) {
     const navigate = useNavigate()
+    const nameRef = useRef()
+    const lastnameRef = useRef()
     const mailRef = useRef()
 
     const [tempUser, setTempUser] = useState({})
     const [changed, setChanged] = useState(false)
 
-    useEffect(() => {
-        console.log('user: ', user)
-        console.log('tempUser: ', tempUser)
-    })
 
     useEffect(() => {
         async function getLoggedInUser() {
@@ -25,12 +23,14 @@ function Show({ user, setUser }) {
     async function handleSubmit() {
 
         let updatedUser = {
+            name: nameRef.current.value,
+            lastname: lastnameRef.current.value,
             email: mailRef.current.value
         }
         await updateUser(user.id, updatedUser)
         setUser(user)
         setChanged(false)
-        alert('saved successfully')
+        alert('edited successfully')
     }
 
 
@@ -38,36 +38,71 @@ function Show({ user, setUser }) {
         await deleteUser(user.id)
         localStorage.removeItem("token")
         setUser({})
-        navigate('/places')
+        navigate('/login')
     }
 
 
     return (
-        <div>
 
-            <div>
-                <h2>Settings</h2>
-
-                <input
-                    type="text"
-                    name="username"
-                    value={tempUser.username}
-                />
-                <input
-                    type="text"
-                    name="email"
-                    ref={mailRef}
-                    value={tempUser.email}
-                    onChange={(e) => {
+        <div className="Signform">
+        <div className='signLeftContent'>
+              <img className="signImg" src={require('../../images/adir.jpg')} alt='event img' />
+              <div className='imgText'>
+                  <h1>Settings</h1>
+              </div>
+          </div>
+          
+          <div className="form-body">
+          <h1>Edit {tempUser.name}'s Page</h1>
+          <form onSubmit= {handleSubmit}>
+          <div className="edit-name">
+              <label htmlFor="nm" className="form__label" >Name:</label>
+                  <input 
+                  className="form__input" 
+                  type="text" 
+                  id="nm" 
+                  name = "name"
+                  ref={nameRef}
+                  onChange={(e) => {
+                        setChanged(true);
+                        setTempUser({ ...tempUser, name: e.target.value })
+                    }}
+                  value={tempUser.name}
+                  />
+                  </div>
+                  <div>
+                   <label htmlFor="ln" className="form__label" >Last Name:</label>
+                  <input 
+                  className="form__input" 
+                  type="text" 
+                  id="ln" 
+                  name = "lastname"
+                  ref={lastnameRef}
+                  onChange={(e) => {
+                        setChanged(true);
+                        setTempUser({ ...tempUser, lastname: e.target.value })
+                    }}
+                  value={tempUser.lastname}
+                  />
+             </div>
+              
+              <div className="email">
+                  <label className="form__label" htmlFor="eml">Email </label>
+                  <input 
+                  id = "eml"
+                  type="email" 
+                  name="email"
+                  ref={mailRef}
+                  onChange={(e) => {
                         setChanged(true);
                         setTempUser({ ...tempUser, email: e.target.value })
                     }}
-                />
+                  value={tempUser.email} 
+                  className="form__input" 
+                   />
+              </div>
 
-            </div>
-
-
-            <div className="buttons">
+            <div className="btn-group user-btn">
 
                 {changed ? (
                     <>
@@ -91,8 +126,10 @@ function Show({ user, setUser }) {
                 </Link>
             </div>
 
-        </div>
+                  </form>
+                  </div>
+                  </div>
     )
 }
 
-export default Show
+export default Edit

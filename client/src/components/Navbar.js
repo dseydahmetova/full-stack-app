@@ -21,13 +21,13 @@ function Navbar({ user, setUser }) {
           <ul className='navbar-nav ms-auto mb-2 mb-lg-0'>
             {user.username ?
               <>
-                <li className="nav-item"><p className="welcome-user">Welcome {user.username}!</p>
+                <li className="nav-item"><p className="welcome-user">WELCOME {user.name.toUpperCase()}!</p>
             </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/places">Places</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="saved-places">
+                  <Link className="nav-link" to={`places/savedPlaces/${user.id}`}>
                     <div>My Places</div>
                   </Link>
                 </li>
@@ -53,14 +53,6 @@ function Navbar({ user, setUser }) {
                    </button>
                  </Link>
                 </li>
-                {/* <li className="nav-item">
-            <Link  className="nav-link" to="/register">Register</Link>
-          </li> */}
-                {/* <li className="nav-item">
-              <Link className="nav-link" to='/about'>
-                <div>About</div>
-              </Link>
-            </li> */}
               </>
             }
           </ul>

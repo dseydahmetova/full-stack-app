@@ -15,6 +15,7 @@ body {
   padding-bottom: 6.74rem;
   box-sizing: inherit;
   overflow: auto;
+  --nav-height: 90px;
 }
 
 .App{
@@ -35,6 +36,12 @@ body {
   justify-content: 'space-between';
   color: darkgreen;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.nav a:hover{
+  text-decoration: none;
+  color: darkgreen;
 }
 
 .nav button{
@@ -43,6 +50,7 @@ body {
   transition-duration: 0.4s;
   height: 50px;
   border-radius: 10px;
+  font-size:25px;
 }
 
 .nav-hidden {
@@ -50,7 +58,6 @@ body {
 }
 
 .travel-logo{
-  /* border-radius: 20%; */
   height: 120px;
   width: 300px;
 }
@@ -91,6 +98,17 @@ body {
   margin: 5px
 }
 
+.user-btn button{
+  background-color:#cb6116;
+  color: white;
+  transition-duration: 0.4s;
+  margin: 5px;
+  border-radius: 5px;
+  height: 40px;
+  margin-top: 20px;
+  
+}
+
 button:hover {
   background-color: rgb(255, 255, 255); 
   color: darkgreen;
@@ -113,8 +131,7 @@ label {
 }
 
 input,
-textarea,
-select {
+textarea {
   min-height: 3rem;
   width: 100%;
   border-radius: 8px;
@@ -153,6 +170,10 @@ select {
   align-items: center;
   gap: 50px;
   font-size: 20px;
+}
+
+.Signform input{
+  padding: 8px;
 }
 
 .signup {
@@ -487,4 +508,11 @@ input[type='radio'] {
 .searchInput:focus {
   box-shadow: 0 0 0 5px #c5c5ee;
   border: 1px solid rgb(219, 129, 3);
+}
+
+.save-msg{
+  text-align: center;
+  color:#ad4b04;
+  font-size: 30px;
+margin-top: 50px;
 }

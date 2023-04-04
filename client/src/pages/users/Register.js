@@ -33,7 +33,7 @@ function Register({ setUser }) {
         const user = await userInfo()
         setUser(user)
 
-        navigate('/places')
+        navigate('/login')
     }
 
     return ( 
@@ -60,6 +60,7 @@ function Register({ setUser }) {
                     onChange={handleChange}
                     value={form.name}
                     validate="required:true"
+                    minLength={2}
                     />
                     </div>
                     <div>
@@ -72,6 +73,7 @@ function Register({ setUser }) {
                     onChange={handleChange}
                     value={form.lastname}
                     validate="required:true"
+                    minLength={2}
                     />
                </div>
                 <div className="username">
@@ -84,6 +86,7 @@ function Register({ setUser }) {
                     onChange={handleChange}
                     value={form.username}
                     validate="required:true"
+                    minLength={3}
                     />
                </div>
                 <div className="email">
@@ -96,7 +99,6 @@ function Register({ setUser }) {
                     value={form.email} 
                     className="form__input" 
                     validate="required:true"
-                    // pattern=".+@globex\.com"
                      />
                 </div>
                 <div className="password">
@@ -109,6 +111,7 @@ function Register({ setUser }) {
                     onChange={handleChange}
                     value={form.password}
                     validate="required:true"
+                    minLength={3}
                 />
                 </div>
               

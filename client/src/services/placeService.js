@@ -3,10 +3,10 @@ import { customAxios, customAxiosWithAuth } from './api'
 const state = []
 
 // get all places from API and save it to Mongo DB
-export async function getAPIPlaces() {
+export async function getAPIPlaces(page) {
     const axios = customAxios()
     try {
-        const response = await axios.get('/places/seed')
+        const response = await axios.get('/places/seed', {page})
         return response.data
     } catch(err) {
         console.log(err.message)
@@ -37,48 +37,55 @@ export async function getSearchPlace( searchQuery) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.get(`/places/search?searchQuery=${searchQuery || 'none'}`)
-        console.log('search', response)
-        return( response.data.place)
-        
+        return {...state, 
+            places: response.data}
     } catch(err) {
         console.log(err)
     }
 }
 
-
-// get saved places 
-export async function getSavedPlaces(userId) {
-    const axios = customAxiosWithAuth()
-    try {
-        const response = await axios.get(`/places/savedPlaces/${userId}`)
-        return response.data
-    } catch(err) {
-        console.log(err)
-    }
-}
-
-
-// get id of saved places 
-export async function getSavedPlacesId(userId) {
-    console.log(userId)
+// get all ids in saved places 
+export async function getSavedPlacesIds( userId) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.get(`/places/savedPlaces/ids/${userId}`)
-        return response.data.data
+        return  response.data
+           
     } catch(err) {
         console.log(err)
     }
 }
+
+// get all saved places 
+export async function getSavedPlaces( userId) {
+    const axios = customAxiosWithAuth()
+    try {
+        const response = await axios.get(`/places/savedPlaces/${userId}`)
+        return {savedPlaces: response.data.savedPlaces}
+           
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+// get all saved places 
+export async function deleteSavedPlace( userId, placeId) {
+   
+    const axios = customAxiosWithAuth()
+    try {
+        await axios.delete(`/places/savedPlaces/${userId}/${placeId}`)
+    } catch(err) {
+        console.log(err.message)
+    }
+}
+
 
 // show a single place by id
 export async function getPlace(id) {
     const axios = customAxios()
     try {
         const response = await axios.get(`/places/${id}`)
-        return {
-            ...state,
-            place: response.data.place
-        }
+        return response.data
     } catch(err) {
         console.log(err.message)
     }
@@ -89,12 +96,7 @@ export async function deletePlace(id) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.delete(`/places/${id}`)
-        
-        return {
-            ...state,
-            places: state.filter(place => place.id!== response.data)
-  
-        }
+        return state.filter(place => place.id!== response.data)
     } catch(err) {
         console.log(err.message)
     }
@@ -106,11 +108,8 @@ export async function createPlace(place) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.post('/places', place)
-        return {
-            ...state, 
-            places: [...state.places, response.data]
-    } 
-}catch(err) {
+        return [...state, response.data]
+    } catch(err) {
         console.log(err.message)
     }
 }
@@ -121,13 +120,7 @@ export async function likePlace(id) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.put(`/places/${id}/likePlace`)
-    console.log('response like ', response.data)
-        // return state.map(place => (place._id === response.data._id ? response.data : place))
-    
-    // return{
-    //     // ...state,
-    //     places: state.places.map(place => (place._id === response.data._id ? response.data : place))
-    // }
+    return state.map(place => (place._id === response.data._id ? response.data : place))
     } catch(err) {
         console.log(err)
     }
@@ -138,10 +131,7 @@ export async function updatePlace(id, place) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.put(`/places/${id}`, place)
-        return {
-            ...state,
-            places: state.places.map(place => (place._id === response.data._id ? response.data : place))
-        }
+        return state.map(place => (place._id === response.data._id ? response.data : place))
     } catch(err) {
         console.log(err.message)
     }
@@ -151,8 +141,7 @@ export async function updatePlace(id, place) {
 export async function savePlace( userId, placeId) {
     const axios = customAxiosWithAuth()
     try {
-        const response = await axios.put(`/places`, {userId, placeId})
-        // return state.map(place => (place._id === response.data._id ? response.data : place))
+        await axios.put(`/places`, {userId, placeId})
     } catch(err) {
         console.log(err)
     }

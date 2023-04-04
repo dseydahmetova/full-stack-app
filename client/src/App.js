@@ -15,10 +15,10 @@ import Footer from './components/Footer';
 import Register from './pages/users/Register';
 import Login from './pages/users/Login';
 
-import Profile from './pages/users/save';
+import Profile from './pages/places/Save';
 import Settings from './pages/users/Edit'
 
-import Home from './pages/places/Home';
+import IndexPlace from './pages/places/Index';
 import ShowPlace from './pages/places/Show';
 
 import { getAPIPlaces } from "../src/services/placeService"
@@ -31,12 +31,8 @@ function App() {
 
 
   useEffect(() => {
-   
-    async function loadData() {
-     await  getAPIPlaces()   
-          }
-          loadData()
-          
+    getAPIPlaces()
+
   let token = localStorage.getItem("token")
 
       if (token) {
@@ -55,17 +51,18 @@ function App() {
 
 
   let loggedIn = user.username
+
   return (
     <div className="App">
      <Navbar user={user} setUser={setUser} />
       <Routes>
-      {/* <Route path='/' element={<Navigate to='/places'/>} /> */}
-      <Route path='/places' element={<Home user={user} />} />
+      <Route path='/' element={<Navigate to='/places'/>} />
+      <Route path='/places' element={<IndexPlace user={user} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
-      <Route path='/places/search' element={<Home user={user} />} />
+      <Route path='/places/search' element={<IndexPlace user={user} />} />
       {loggedIn ?
       <>
-                 <Route path='/saved-places' element={<Profile user={user} />} />
+                 <Route path='places/savedPlaces/:id' element={<Profile user={user} />} />
                  <Route path='/users/:id' element={<Settings user={user} setUser={setUser} />} />
 
               {!isLoading && <Route path='*' element={<Navigate to='/places' />} />}
