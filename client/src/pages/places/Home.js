@@ -158,7 +158,7 @@ function Home({ user }) {
                 </div>
             )} */} 
             <div className="Home">
-            <Place user = {user} currentId={currentId} setCurrentId={setCurrentId} />
+            <Place user = {user} currentId={currentId} setCurrentId={setCurrentId}  page = {page}/>
                 
                 <div className="home-right">
                     <New currentId={currentId} setCurrentId={setCurrentId} places={places} setPlaces={setPlaces} user= {user}/>
@@ -169,6 +169,10 @@ function Home({ user }) {
                     )}
                 </div>
             </div>
+
+<div><h1>new test div</h1>
+<Pagination page = {page}/>
+</div>
 
         </div>
 

@@ -5,13 +5,14 @@ import StarRating from "../../components/StarRating"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-export default function Index({ user, currentId, setCurrentId }) {
+export default function Index({ user, currentId, setCurrentId, page }) {
     const [places, setPlaces] = useState({})
     const [savedPlaces, setSavedPlaces] = useState([]);
 
     useEffect(() => {
         async function loadData() {
-            const data = await getAllPlaces()
+            const data = await getAllPlaces(page)
+            console.log("index page",data)
             setPlaces(data.places)
         }
 
