@@ -5,10 +5,12 @@ import { createPlace, getPlace, updatePlace, getAllPlaces} from '../../services/
 
 
 function New({ user, currentId, setCurrentId, setPlaces, places}) {
+    
     const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
-    const place = currentId ? places.find((place) => place._id === currentId) : null;
+    const place = currentId ? places.places.find((place) => place._id === currentId) : null;
   const navigate = useNavigate();
-console.log('places', places.places)
+
+  console.log('places', {places})
     useEffect(() => {
         if (!place?.fullName) {
             clear()

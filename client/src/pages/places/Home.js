@@ -28,6 +28,7 @@ function Home({ user }) {
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery')
 
+
     // useEffect(() => {
     //     async function loadData() {
            
@@ -62,7 +63,7 @@ function Home({ user }) {
     function handleKeyPressed(e){
         if (e.key === 'Enter') {
             searchPlace()
-            // console.log('enter')
+
         }
     }
 
@@ -71,9 +72,9 @@ function Home({ user }) {
         if (search.trim()) {
            const searchPlace =  await getSearchPlace(search)
            navigate(`/places/search?searchQuery=${search || 'none'}`);
-        // if(searchPlace){
-        //     setPlaces(searchPlace.places)
-        // }  
+        if(searchPlace){
+            setPlaces(searchPlace)
+        }  
         }else {
             navigate('/')
         }
@@ -158,7 +159,7 @@ function Home({ user }) {
                 </div>
             )} */} 
             <div className="Home">
-            <Place user = {user} currentId={currentId} setCurrentId={setCurrentId}  page = {page}/>
+            <Place user = {user} currentId={currentId} setCurrentId={setCurrentId}  places = {places} page = {page}/>
                 
                 <div className="home-right">
                     <New currentId={currentId} setCurrentId={setCurrentId} places={places} setPlaces={setPlaces} user= {user}/>
@@ -169,10 +170,6 @@ function Home({ user }) {
                     )}
                 </div>
             </div>
-
-<div><h1>new test div</h1>
-<Pagination page = {page}/>
-</div>
 
         </div>
 

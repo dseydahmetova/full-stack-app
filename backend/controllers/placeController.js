@@ -4,8 +4,8 @@ const axios = require('axios')
 
 //Seed the places from api to DB
 module.exports.seed = async (req, res) => {
-
-    const key = 'Wkbi1lT4S7DeLlieN07oVPk4c3n8rycPXNhpbb3W'
+    // await Place.deleteMany({})
+    const key = process.env.REACT_APP_API_KEY
     try{
         const response = await axios.get(
             `https://developer.nps.gov/api/v1/parks?&api_key=${key}`
@@ -13,7 +13,6 @@ module.exports.seed = async (req, res) => {
        
         const myPlace = response.data.data
      for(let i=0; i< myPlace.length; i++){
-     
                  const places = new Place({
                     image: myPlace[i].images[0]['url'],
                     fullName: myPlace[i].fullName,
@@ -24,10 +23,7 @@ module.exports.seed = async (req, res) => {
                     weatherInfo: myPlace[i].weatherInfo
                  })
                  await places.save()
-             }
-       
-        // console.log("myplace", myPlace)
-        
+             }        
     }catch(error){
         console.log(error)
     }
@@ -38,7 +34,7 @@ module.exports.seed = async (req, res) => {
 module.exports.index = async (req, res) => {
     const {page} = req.query
     try {
-        const LIMIT = 9;
+        const LIMIT = 6;
         // get the starting index of every page
         const startIndex = (Number(page) - 1) * LIMIT
         const total = await Place.countDocuments({})
@@ -97,7 +93,7 @@ module.exports.like = async (req, res) => {
             return res.json({message: 'You must be logged in to like a place'})
         }
         const place = await Place.findById(req.params.id) 
-const updatedPlace = await Place.findByIdAndUpdate(req.params.id, place, {likeCount: place.likeCount + 1}, { new: true })
+        const updatedPlace = await Place.findByIdAndUpdate(req.params.id, {likeCount: place.likeCount + 1}, { new: true })
         // const updatedPlace = await Place.findByIdAndUpdate(req.params.id, place, { new: true })
 
         res.status(200).json(updatedPlace)
@@ -154,8 +150,9 @@ module.exports.search = async (req, res) => {
     try {
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
-          const place = await Place.find({fullName})    
-        res.status(200).json({data: place})
+          const place = await Place.find({fullName}) 
+          console.log(place)   
+        res.status(200).json({place})
        
     } catch(err) {
         res.status(404).json({ error: err.message })

@@ -9,12 +9,10 @@ const Paginate = ({page}) => {
     const classes = useStyles()
     const [totalnumberOfPages, setTotalnumberOfPages] = useState(0);
    
-  console.log('pagination page', totalnumberOfPages)
     useEffect(() => {
             async function loadData() {
                if(page){
                 const result = await getAllPlaces(page)
-                console.log('resultttttt', result)
                 setTotalnumberOfPages(result.totalnumberOfPages)
             }
                }

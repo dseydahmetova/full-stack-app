@@ -14,7 +14,7 @@ function Navbar({ user, setUser }) {
     <nav className="navbar navbar-expand-lg nav">
       <div className="container-fluid">
 
-<Link to="/">
+<Link to="/places">
 <img src={Logo} className ="travel-logo"  alt = "logo"/>
 </Link>
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
@@ -23,7 +23,6 @@ function Navbar({ user, setUser }) {
               <>
                 <li className="nav-item"><p className="welcome-user">Welcome {user.username}!</p>
             </li>
-            <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/places">Places</Link>
                 </li>
@@ -37,6 +36,7 @@ function Navbar({ user, setUser }) {
                     <div>Settings</div>
                   </Link>
                 </li>
+                <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
                 <li className="nav-item" onClick={logout}>
                   <Link className="nav-link" to="/login">Logout</Link>
                 </li>

@@ -31,8 +31,12 @@ function App() {
 
 
   useEffect(() => {
-    getAPIPlaces()
-
+   
+    async function loadData() {
+     await  getAPIPlaces()   
+          }
+          loadData()
+          
   let token = localStorage.getItem("token")
 
       if (token) {
@@ -55,7 +59,7 @@ function App() {
     <div className="App">
      <Navbar user={user} setUser={setUser} />
       <Routes>
-      <Route path='/' element={<Navigate to='/places'/>} />
+      {/* <Route path='/' element={<Navigate to='/places'/>} /> */}
       <Route path='/places' element={<Home user={user} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
       <Route path='/places/search' element={<Home user={user} />} />

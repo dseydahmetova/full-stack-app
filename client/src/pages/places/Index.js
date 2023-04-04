@@ -5,23 +5,28 @@ import StarRating from "../../components/StarRating"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-export default function Index({ user, currentId, setCurrentId, page }) {
+export default function Index({user, currentId, setCurrentId, page }) {
     const [places, setPlaces] = useState({})
     const [savedPlaces, setSavedPlaces] = useState([]);
 
     useEffect(() => {
-        async function loadData() {
+        
+             async function loadData() {
             const data = await getAllPlaces(page)
             console.log("index page",data)
             setPlaces(data.places)
         }
+       
+        loadData()
+    
+    
 
 async function loadSavedPlaces() {
-const data = await getSavedPlacesId(user.id)
-setSavedPlaces(data.savedPlaces)
+// const data = await getSavedPlacesId(user.id)
+// setSavedPlaces(data.savedPlaces)
 }
 
-        loadData()
+
         loadSavedPlaces()
     }, [currentId])
 
@@ -75,6 +80,7 @@ setSavedPlaces(data.savedPlaces)
                                     <p className="text-overflow">{place.description}</p>
                                     <StarRating /> 
                                     <div className="card-btm">
+                                    {user?.username  && (
                                     <div className="btn-group">
                                         
                                         <button className="icon-btn"
@@ -101,7 +107,9 @@ setSavedPlaces(data.savedPlaces)
                                         &nbsp;
                                        
                                     </button>
+                   
                                     </div> 
+                                    )}
                                     </div>
                                 </div>
                             </div>

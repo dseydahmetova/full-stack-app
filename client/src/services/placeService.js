@@ -3,10 +3,10 @@ import { customAxios, customAxiosWithAuth } from './api'
 const state = []
 
 // get all places from API and save it to Mongo DB
-export async function getAPIPlaces(page) {
+export async function getAPIPlaces() {
     const axios = customAxios()
     try {
-        const response = await axios.get('/places/seed', {page})
+        const response = await axios.get('/places/seed')
         return response.data
     } catch(err) {
         console.log(err.message)
@@ -37,8 +37,9 @@ export async function getSearchPlace( searchQuery) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.get(`/places/search?searchQuery=${searchQuery || 'none'}`)
-        return {...state, 
-            places: response.data}
+        console.log('search', response)
+        return( response.data.place)
+        
     } catch(err) {
         console.log(err)
     }
@@ -120,11 +121,13 @@ export async function likePlace(id) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.put(`/places/${id}/likePlace`)
-    // return state.map(place => (place._id === response.data._id ? response.data : place))
-    return{
-        ...state,
-        places: state.places.map(place => (place._id === response.data._id ? response.data : place))
-    }
+    console.log('response like ', response.data)
+        // return state.map(place => (place._id === response.data._id ? response.data : place))
+    
+    // return{
+    //     // ...state,
+    //     places: state.places.map(place => (place._id === response.data._id ? response.data : place))
+    // }
     } catch(err) {
         console.log(err)
     }
