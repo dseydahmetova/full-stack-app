@@ -14,7 +14,7 @@ function Navbar({ user, setUser }) {
     <nav className="navbar navbar-expand-lg nav">
       <div className="container-fluid">
 
-<Link to="/places">
+<Link to="/">
 <img src={Logo} className ="travel-logo"  alt = "logo"/>
 </Link>
         <div className="collapse navbar-collapse" id="collapsibleNavbar">

@@ -23,8 +23,6 @@ router.get('/seed', placeControl.seed)
 //search
 router.get('/search', placeControl.search)
 
-
-
 // delete
 router.delete('/:id', placeControl.delete)
 

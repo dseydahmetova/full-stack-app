@@ -4,8 +4,8 @@ import { createPlace, getPlace, updatePlace, getAllPlaces} from '../../services/
 
 
 function New({ user, currentId, setCurrentId, setPlaces}) {
-    const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
-
+    const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: ''});
+console.log(placeData)
     useEffect(() => {
         if (currentId) {
             async function loadData() {
@@ -14,23 +14,16 @@ function New({ user, currentId, setCurrentId, setPlaces}) {
             }
             loadData()
         } else {
-            setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
-        }
-
-        // console.log(placeData)
-       
-    },
-    
-
-        [currentId]);
+            setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: `${user.username}` });
+        }       
+    }, [currentId]);
 
     function clear() {
         setCurrentId(0);
-        setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '' });
+        setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: '' });
     };
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit() {
         try {
             if (currentId) {
                 await updatePlace(currentId, placeData)
@@ -59,6 +52,8 @@ function New({ user, currentId, setCurrentId, setPlaces}) {
                 <input name="stateCode" placeholder='stateCode' value={placeData.stateCode} onChange={(e) => setPlaceData({ ...placeData, stateCode: e.target.value })} />
                 <textarea name="description" placeholder='description' col = "15" value={placeData.description} onChange={(e) => setPlaceData({ ...placeData, description: e.target.value })} />
                 <textarea name="weatherInfo" placeholder='weatherInfo' col = "15" value={placeData.weatherInfo} onChange={(e) => setPlaceData({ ...placeData, weatherInfo: e.target.value })} />
+                {/* <input name="image" placeholder='image url' value={placeData.image} onChange={(e) => setPlaceData({ ...placeData, image: e.target.value })} /> */}
+
                 <div >
                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setPlaceData({ ...placeData, image: base64 })} />
                 </div>

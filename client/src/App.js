@@ -21,7 +21,6 @@ import Settings from './pages/users/Edit'
 import IndexPlace from './pages/places/Index';
 import ShowPlace from './pages/places/Show';
 
-import { getAPIPlaces } from "../src/services/placeService"
 
 function App() {
   library.add(fas)
@@ -31,7 +30,6 @@ function App() {
 
 
   useEffect(() => {
-    getAPIPlaces()
 
   let token = localStorage.getItem("token")
 
@@ -56,7 +54,6 @@ function App() {
     <div className="App">
      <Navbar user={user} setUser={setUser} />
       <Routes>
-      <Route path='/' element={<Navigate to='/places'/>} />
       <Route path='/places' element={<IndexPlace user={user} />} />
       <Route path='/places/:id' element={<ShowPlace user={user} />} />
       <Route path='/places/search' element={<IndexPlace user={user} />} />
@@ -71,7 +68,7 @@ function App() {
                  <>  
                  <Route path='/login' element={<Login setUser={setUser} />} />
                  <Route path='/register' element={<Register setUser={setUser} />} />
-                 {!isLoading && <Route path='*' element={<Navigate to='/login' />} />}
+                 {!isLoading && <Route path='*' element={<Navigate to='/places' />} />}
          </>
       }
       </Routes>

@@ -5,7 +5,7 @@ const axios = require('axios')
 //Seed the places from api to DB
 module.exports.seed = async (req, res) => {
 
-    const key = 'Wkbi1lT4S7DeLlieN07oVPk4c3n8rycPXNhpbb3W'
+    const key = process.env.REACT_APP_API_KEY
     try{
         const response = await axios.get(
             `https://developer.nps.gov/api/v1/parks?&api_key=${key}`
@@ -21,12 +21,11 @@ module.exports.seed = async (req, res) => {
                     city: myPlace[i].addresses[0]['city'],
                     stateCode: myPlace[i].addresses[0]['stateCode'],
                     description: myPlace[i].description,
-                    weatherInfo: myPlace[i].weatherInfo
+                    weatherInfo: myPlace[i].weatherInfo,
+                    user: 'admin'
                  })
                  await places.save()
              }
-       
-        // console.log("myplace", myPlace)
         
     }catch(error){
         console.log(error)
@@ -63,7 +62,8 @@ module.exports.show = async (req, res) => {
 module.exports.create = async (req, res) => {
     try {
         const place = await Place.create(req.body)
-        res.status(200).json(place)
+        console.log('control', Place.length)
+        // res.status(200).json(place)
     } catch(err) {
         res.status(400).json({ error: err.message })
     }
@@ -150,17 +150,14 @@ module.exports.deleteSavedPlaces = async (req, res) => {
 
 module.exports.search = async (req, res) => {
    const {searchQuery} = req.query
-   
-    try {
+   try {
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
           const place = await Place.find({fullName})    
         res.status(200).json({place})
-       
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
-   
 }
 
 //first checking if the user already saved the place

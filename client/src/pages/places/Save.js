@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
 import StarRating from "../../components/StarRating";
 import { getSavedPlaces, deleteSavedPlace } from "../../services/placeService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,12 +8,6 @@ function Save({ user }) {
     const [savedPlaces, setSavedPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
 
-    const navigate = useNavigate()
-   
-
-    function goBack() {
-        navigate(-1)
-    }
 
     useEffect(() => {
 
@@ -44,8 +37,9 @@ function Save({ user }) {
         <div id="saved-places">
         <form>
         <ul>
-        {!savedPlaces.length && !isLoading ? 
-        <h1 className = "save-msg">Sorry, there are no places to show..</h1>: (
+        {!savedPlaces.length ? 
+        <h1 className = "save-msg">Sorry, there are no places to show..</h1>
+        : ( 
                 <div className="places">
               
                     {savedPlaces.map((place, index) =>

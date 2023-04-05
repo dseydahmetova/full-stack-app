@@ -8,7 +8,6 @@ import { savePlace, getSearchPlace, getSavedPlacesIds } from "../../services/pla
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 function useQuery() {
     return new URLSearchParams(useLocation().search)
 }
@@ -24,7 +23,6 @@ function Index({ user }) {
     const navigate = useNavigate();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery')
-    console.log("this is index saved place ids", savedPlaces)
 
 
     useEffect(() => {
@@ -34,17 +32,20 @@ function Index({ user }) {
         }
 
         async function loadSavedPlaces() {
+            if(user.username){
             const data = await getSavedPlacesIds(user.id)
             setSavedPlaces(data.savedPlaces)
+            }
         }
 
         loadSavedPlaces()
         loadData()
-    }, [currentId])
+    }, [])
 
 
     async function handleDeletePlace(id) {
         await deletePlace(id)
+        // window.location.reload(false);
         // const data = await getAllPlaces()
         // setPlaces(data)
     }
@@ -60,14 +61,14 @@ function Index({ user }) {
         setSavedPlaces(savedPlace)
     }
 
-    // function isPlaceSaved(id) {
-    //     return savedPlaces.id === id
-    // }
+    function isPlaceSaved(id) {
+        return savedPlaces && savedPlaces.includes(id)
+    }
+
 
     function handleKeyPressed(e){
         if (e.key === 'Enter') {
             searchPlace()
-            // console.log('enter')
         }
     }
 
@@ -87,6 +88,7 @@ function Index({ user }) {
     return (
 
         <div id="main">
+        
             <div className="card-title">
 
                 <h1 className="welcome-msg">Discover story-worthy travel moments</h1>
@@ -105,7 +107,10 @@ function Index({ user }) {
             </div>
 
             <div className="Home">
-            {!places.length ? "places": (
+            {!places.length ? 
+                <h1 className = "save-msg">Sorry, there are no places to show..</h1>
+
+            : (
                 <div className="places">
               
                     {places.map((place, index) =>
@@ -134,32 +139,43 @@ function Index({ user }) {
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> &nbsp; Like &nbsp; {place.likeCount}
                                         </button>
+
                                         <button className="icon"
+                                        disabled={user.username !== place.user}
                                             onClick={(e) => handleDeletePlace(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete
                                         </button>
                                         <button className="icon"
+                                         disabled={user.username !== place.user}
                                             onClick={(e) => setCurrentId(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit
                                         </button>
-                                    </div> <button
+                                     
+                                    
+                           
+                                    <button  
                                         onClick={() => { addToFavorite(user.id, place._id) }}
-                                    // disabled={isPlaceSaved(place._id)}
+                                    disabled={isPlaceSaved(place._id) ||!user.username}
                                     >
-                                        {/* {isPlaceSaved(places._id) ? "Saved" : "Save"} */}
-                                        Save
-                                    </button>
+                                        {isPlaceSaved(place._id) ? "Saved" : "Save"}
+                                                        </button>
+                            
+</div>
                                 </div>
                             </div>
                         </div>
 
                     )}
 
+                   
+    
+
                 </div>
             )}
                 <div className="form">
+
                     <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
                     {(!searchQuery) && (
                     <div>
@@ -168,7 +184,6 @@ function Index({ user }) {
                     )}
                 </div>
             </div>
-
         </div>
 
     )

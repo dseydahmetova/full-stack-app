@@ -19,7 +19,7 @@ function Show({ user }) {
     const cityRef = useRef()
     const stateRef = useRef()
     const weatherRef = useRef()
-    const detailsRef = useRef()
+    const userRef = useRef()
     const bodyRef = useRef()
 
     function goBack() {
@@ -143,6 +143,8 @@ function Show({ user }) {
                             </p>
                             <p ref={descRef} name="description">{places.description}</p>
                             <p ref={weatherRef}>{places.weatherInfo}</p>
+                            <p ref={userRef}>Posted by {places.user} on {new Date(places.createdAt).toLocaleDateString()} at {new Date(places.createdAt).toLocaleTimeString()}</p>
+
 
 
                             <StarRating />
@@ -160,7 +162,7 @@ function Show({ user }) {
                                                 {comment.user.name === user.name &&
                                                     <>
                                                         <button onClick={() => handleDeleteComment(comment)}>Delete</button>
-                                                        <Link to={`/posts/${places._id}/comments/${comment._id}`}><span>Add</span></Link>
+                                                        <Link to={`/places/${places._id}/comments/${comment._id}`}><span>Add</span></Link>
                                                     </>
                                                 }
                                             </div>
@@ -180,7 +182,7 @@ function Show({ user }) {
                             } */}
 
                             <div className="btn-group">
-                                {places.user === user.username &&
+                                {/* {places.user === user.username &&
                                     <>
                                         <button onClick={handleDeletePost}>Delete</button>
                                         <Link to={`/places/${places._id}/edit`}>
@@ -188,7 +190,7 @@ function Show({ user }) {
                                         </Link>
                                        
                                     </>
-                                }
+                                } */}
 
                                 <div>
 

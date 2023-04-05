@@ -19,7 +19,6 @@ export async function getAllPlaces(page) {
     const axios = customAxios()
     try {
         const response = await axios.get(`/places?page=${page}`)
-       console.log(response.data)
         return {
             ...state,
             places: response.data.data,
@@ -37,8 +36,8 @@ export async function getSearchPlace( searchQuery) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.get(`/places/search?searchQuery=${searchQuery || 'none'}`)
-        return {...state, 
-            places: response.data}
+        console.log('service res', response.data.place)
+        return {places: response.data.place}
     } catch(err) {
         console.log(err)
     }
@@ -105,10 +104,13 @@ export async function deletePlace(id) {
 
 // create a new place
 export async function createPlace(place) {
+    console.log('service place', place)
+
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.post('/places', place)
-        return [...state, response.data]
+        console.log('service data ', response.data)
+        // return [...state, response.data]
     } catch(err) {
         console.log(err.message)
     }
