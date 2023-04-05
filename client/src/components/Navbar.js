@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import Logo from '../images/logopic.png'
+import Logo from '../images/logoNav-removebg-preview.png'
 
 function Navbar({ user, setUser }) {
 
@@ -10,19 +10,23 @@ function Navbar({ user, setUser }) {
   };
 
   return (
-
-    <nav className="navbar navbar-expand-lg nav">
+    <nav className="navbar navbar-expand-lg nav ">
       <div className="container-fluid">
 
-<Link to="/">
-<img src={Logo} className ="travel-logo"  alt = "logo"/>
-</Link>
+        <Link to="/">
+          <img src={Logo} className="travel-logo" alt="logo" />
+        </Link>
+
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className='navbar-nav ms-auto mb-2 mb-lg-0'>
             {user.username ?
               <>
                 <li className="nav-item"><p className="welcome-user">WELCOME {user.name.toUpperCase()}!</p>
-            </li>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/places">Places</Link>
                 </li>
@@ -36,10 +40,13 @@ function Navbar({ user, setUser }) {
                     <div>Settings</div>
                   </Link>
                 </li>
-                <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
                 <li className="nav-item" onClick={logout}>
-                  <Link className="nav-link" to="/login">Logout</Link>
+                  <Link className="nav-link" to="/login">
+                  Logout
+                  </Link>
                 </li>
+                                <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
+
               </>
               :
               <>
@@ -48,11 +55,12 @@ function Navbar({ user, setUser }) {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link signup" to="/login">
-                  <button >&nbsp; Sign In &nbsp;
-                   <FontAwesomeIcon icon="fa-solid fa-user" />
-                   </button>
-                 </Link>
+                    <button >&nbsp; Sign In &nbsp;
+                      <FontAwesomeIcon icon="fa-solid fa-user" />
+                    </button>
+                  </Link>
                 </li>
+
               </>
             }
           </ul>

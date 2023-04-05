@@ -22,6 +22,18 @@ app.use(bodyParser.json({limit:'50mb'}));
 app.use(bodyParser.urlencoded({extended:true, limit:'50mb'})); ```
 
 
+2. `Bootstrap Navbar toggle elements did not stay in one line`
+Solution: It's because of media queries, so on smaller screens it changes the style. Adding these style attributes fixed this issue:
+
+ ```.navbar-nav {
+    float: right;
+    margin: 0;
+  }
+  .navbar-nav > li {
+    float: right;
+  }
+```
+
 **Screenshots:**
 
 <!-- * welcome page of the game

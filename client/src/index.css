@@ -16,7 +16,14 @@ body {
   box-sizing: inherit;
   overflow: auto;
   --nav-height: 90px;
+  
 }
+
+.navbar-nav {
+  float:right;
+  margin: 5px;
+}
+
 
 .App{
   min-height: 100%;
@@ -60,6 +67,7 @@ body {
 .travel-logo{
   height: 120px;
   width: 300px;
+  image-rendering: pixelated;
 }
 
 .searchbar input[type="text"]{
@@ -75,27 +83,34 @@ body {
   color: darkgreen;
   margin: 40px;
   font-size: 20px;
-  height: 55px;
+  height: 60px;
+  width: 100px;
+  border-radius: 10px;
+  font-weight: bold;
+
 } 
 
 .searchbar button:hover{
   background-color:#cb6116;
-  color: darkgreen;
+  color: white;
 }
-/* .pagination {
-  border-radius: 10px;
-    margin-top: 1rem;
+
+.pagination {
+  /* border-radius: 10px; */
+    margin-top: 5rem;
     padding: 16px;
-}  */
+} 
 
 .icon-btn {
  background-color: #397c70;
   color: white;
   transition-duration: 0.4s;
   width: 90px;
-  font-size: 12px;
-  height: 30px;
-  margin: 5px
+  font-size: 14px;
+  height: 35px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .user-btn button{
@@ -193,7 +208,7 @@ textarea {
   grid-template-columns: 5fr 2fr;
   /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
   /* grid-template-columns: 1fr 3fr 1fr; */
-  padding-top: 40px;
+  /* padding-top: 40px; */
   justify-content:space-between;
   align-items: stretch;
   gap: 10px;
@@ -201,28 +216,25 @@ textarea {
 }
 
 /* Edit/Create Form */
-.home-right{
- margin-top: 80px;
- display: 'flex';
-}
 
 .form{
+  margin-top: 80px;
   background-color: #397c70;
   border-radius: 8px;
  min-width: 50%;
  max-width: 80%;
-/* height: 80%; */
+height: 35%;
 display: flex;
-flex-direction: column;
+padding-top: 30px;
   justify-content: center;
-  gap: 30px;
-  align-items: center;
+  align-content: center;
 }
 
 .form form {
-  margin: 30px 0;
-  width: 85%;
-  font-size: 16px;
+  width: 80%;
+  font-size: 20px;
+  margin: 0;
+  justify-content: center;
 }
 
 .form h4{
@@ -256,7 +268,8 @@ input:hover{
 }
 
 
-.text-overflow{
+.text-overflow {
+  font-size: 18px;
   display: -webkit-box;
   max-width: 400px;
   -webkit-line-clamp: 3;
@@ -350,8 +363,18 @@ position: relative;
   justify-items: center;
 }
 
+.icon-btn-group{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  justify-items: center;
+  bottom: 20px;
+  /* position: absolute; */
+}
+
 .welcome-user{
  margin: 5px;
+ text-align: center;
 }
 
 .user-img{
@@ -361,6 +384,7 @@ position: relative;
    margin: 1px;
    width:50px;
    height:50px;
+   padding-top: 3px;
    text-align: center;
 }
 
@@ -371,41 +395,6 @@ position: relative;
   padding: 20px;
   font-family: "Google Sans",'Roboto',"Helvetica Neue",Arial,sans-serif;
     font-weight: 600;
-}
-
-.delete-btn{
-position:absolute;
-right: 2px;
-top: 2px;
-}
-
-
-.delete-btn button:after {
-  content: '\2807';
-  font-size: 24px;
-  }
-
-  .delete-btn button:hover {
-    background-color: rgb(94, 91, 91);
-    color: white
-    }
-
-.delete-btn button{
-  color: black;
-  box-shadow: 0 6px 6px rgba(8, 8, 8, 0.6);
-
-  background-color: rgb(241, 241, 248);
-margin: 10px; 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /* border: 1px solid transparent; */
-    border-radius: 50%;
-    height: 40px;
-    left: 0;
-   cursor: pointer;
-    top: 0;
-    width: 40px;
 }
 
 
@@ -444,15 +433,6 @@ margin: 10px;
   }
   
 
-#place-details{
-margin-left: 30%;
-padding: 100px;
-}
-
-.card-detail{
-  width: 60rem;
-  /* height: 10rem; */
-}
 
 
 /* Start Rating */
@@ -516,3 +496,109 @@ input[type='radio'] {
   font-size: 30px;
 margin-top: 50px;
 }
+
+.warning-msg{
+  color:rgb(138, 40, 40);
+  text-align: center
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.address{
+  text-decoration: underline;
+  color:#1a4e3d;
+  font-size: 18px;
+}
+
+
+/* SHOW PAGE */
+.address-show{
+  text-decoration: underline;
+  color:#1a4e3d;
+  font-size: 28px;
+}
+
+.card-text-show{
+  color:#1a4e3d;
+  font-size: 18px;
+  width: fit-content;
+  height: 400px;
+  padding: 20px;
+}
+
+.place-show{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  padding: 20px;
+  width: 60%;
+  height: 600px;
+  margin: 50px;
+  gap:40px;
+  border-radius: 10px;
+border:#4b8f78 solid 2px;
+
+}
+
+.img-show{
+  position: relative;
+}
+
+.img-show img {
+  width: 600px;
+  height: 550px;
+  border-radius: 10px;
+
+}
+
+.post-user{
+  opacity: 0.5;
+  color: rgb(170, 62, 62);
+  font-weight: bold;
+}
+
+  
+.delete-btn{
+  position:absolute;
+  right: 2px;
+  top: 2px;
+  }
+  
+  
+  .delete-btn button:after {
+    /* content: '\2807'; */
+    font-size: 24px;
+    }
+  
+    .delete-btn button:hover {
+      background-color: rgb(94, 91, 91);
+      color: white
+      }
+  
+  .delete-btn button{
+    color: black;
+    box-shadow: 0 6px 6px rgba(8, 8, 8, 0.6);
+  
+    background-color: rgb(241, 241, 248);
+  margin: 10px; 
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      height: 40px;
+      left: 0;
+     cursor: pointer;
+      top: 0;
+      width: 40px;
+  }
+  
+  #place-details{
+    display: flex;
+    justify-content: center;
+  }

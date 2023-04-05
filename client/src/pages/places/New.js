@@ -43,10 +43,10 @@ console.log(placeData)
 
 
     return (
-        <div className='form'>
+        <div className="form">
             <form autoComplete="off" onSubmit={handleSubmit}>
             <h4>{currentId ? 'Edit the Place' : 'Create a new PLace'}</h4>
-                <input name="fullName" placeholder='Name' value={placeData.fullName} onChange={(e) => setPlaceData({ ...placeData, fullName: e.target.value })} />
+                <input name="fullName" placeholder='Name' validate="required:true" value={placeData.fullName} onChange={(e) => setPlaceData({ ...placeData, fullName: e.target.value })} />
                 <input name="address" placeholder='address' value={placeData.address} onChange={(e) => setPlaceData({ ...placeData, address: e.target.value })} />
                 <input name="city" placeholder='city' value={placeData.city} onChange={(e) => setPlaceData({ ...placeData, city: e.target.value })} />
                 <input name="stateCode" placeholder='stateCode' value={placeData.stateCode} onChange={(e) => setPlaceData({ ...placeData, stateCode: e.target.value })} />
@@ -57,8 +57,16 @@ console.log(placeData)
                 <div >
                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setPlaceData({ ...placeData, image: base64 })} />
                 </div>
-                <button type="submit">Submit</button>
+                {user.username ?
+                <>
+                <button 
+                disabled={!user.username}
+                type="submit">Submit</button>
                 <button onClick={clear} >Cancel</button>
+                </>
+                : 
+                <h2 className='warning-msg'>Please log in to create/edit your place</h2>
+                }
             </form>
         </div>
 

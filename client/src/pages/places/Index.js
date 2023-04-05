@@ -44,10 +44,19 @@ function Index({ user }) {
 
 
     async function handleDeletePlace(id) {
-        await deletePlace(id)
+       const data = await deletePlace(id)
+    //    place.filter(data)
         // window.location.reload(false);
         // const data = await getAllPlaces()
         // setPlaces(data)
+
+
+
+//         await removeRecipeFromUserFavUsingId(recipe.idMeal)
+//     let updatedUser = {...user}
+//     updatedUser.favoriterecipes= updatedUser.favoriterecipes.filter(c => c._id !== recipe._id)
+//    //console.log(updatedUser.favoriterecipes)
+//     setUser(updatedUser)
     }
 
     async function handleLikePlace(id) {
@@ -60,6 +69,31 @@ function Index({ user }) {
         const savedPlace = await savePlace(userId, placeId)
         setSavedPlaces(savedPlace)
     }
+
+
+ // async function addToFavorite(placeId) {
+
+        // if (favorite.some((favItem) => favItem.fullName === place.fullName)) {
+        //   setFavorite((item) =>
+        //   favorite.map((favItem) =>
+        //       favItem.fullName === item.fullName
+        //         ? 
+        //          "You already added"
+
+        //         : favItem
+        //     )
+        //   );
+        //   return;
+        // }
+        // setFavorite((fav) => [
+        //   ...favorite,
+        //   { ...place }
+        // ]);
+
+
+    // };
+
+
 
     function isPlaceSaved(id) {
         return savedPlaces && savedPlaces.includes(id)
@@ -129,33 +163,32 @@ function Index({ user }) {
                             <div className="card-body">
                                 <div className="card-text">
 
-                                    <p>{place.address}, {place.city}, {place.stateCode}</p>
-                                    <p>{place.description}</p>
-                                    <div>
+                                    <p className="address">{place.address}, {place.city}, {place.stateCode}</p>
+                                    <p className="text-overflow">{place.description}</p>
+                                    
                                         <StarRating />
-                                        <button className="icon"
+                                        <div className="icon-btn-group">
+                                        <button className="icon-btn"
                                             onClick={(e) => handleLikePlace(place._id)}
 
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> &nbsp; Like &nbsp; {place.likeCount}
                                         </button>
 
-                                        <button className="icon"
+                                        <button className="icon-btn"
                                         disabled={user.username !== place.user}
                                             onClick={(e) => handleDeletePlace(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete
                                         </button>
-                                        <button className="icon"
+                                        <button className="icon-btn"
                                          disabled={user.username !== place.user}
                                             onClick={(e) => setCurrentId(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit
                                         </button>
                                      
-                                    
-                           
-                                    <button  
+                                    <button   className="icon-btn"
                                         onClick={() => { addToFavorite(user.id, place._id) }}
                                     disabled={isPlaceSaved(place._id) ||!user.username}
                                     >
@@ -174,15 +207,18 @@ function Index({ user }) {
 
                 </div>
             )}
-                <div className="form">
+                {/* <div className="form"> */}
 
                     <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
+                    
+                {/* </div> */}
+                <div className="pagination">
                     {(!searchQuery) && (
                     <div>
                         <Pagination page = {page}/>
                     </div> 
                     )}
-                </div>
+                    </div>
             </div>
         </div>
 
