@@ -57,12 +57,12 @@ Solution: It's because of media queries, so on smaller screens it changes the st
 ```
 
 **Screenshots:**
-
-<!-- * home page
-![home page ](https://)
+# ERD Diagram
+<!-- * erd
+![home page ](https://github.com/dseydahmetova/full-stack-app/blob/brokencode/readmeImg/Capture.JPG?raw=true/)
  
 * 
-![user](https://) -->
+![home](https://github.com/dseydahmetova/full-stack-app/blob/brokencode/readmeImg/homePage.JPG?raw=true) 
 
 
 
