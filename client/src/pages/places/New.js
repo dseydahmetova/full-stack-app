@@ -1,10 +1,12 @@
-import { useState, useEffect, navigate } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate} from "react-router-dom"
 import FileBase from 'react-file-base64';
 import { createPlace, getPlace, updatePlace, getAllPlaces } from '../../services/placeService'
 
 
 function New({ user, currentId, setCurrentId, places, setPlaces }) {
     const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: '' });
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (currentId) {
