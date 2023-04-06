@@ -42,10 +42,10 @@ function Navbar({ user, setUser }) {
                 </li>
                 <li className="nav-item" onClick={logout}>
                   <Link className="nav-link" to="/login">
-                  Logout
+                    Logout
                   </Link>
                 </li>
-                                <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
+                <li><div className="user-img">{user.username.charAt(0).toUpperCase()}</div></li>
 
               </>
               :

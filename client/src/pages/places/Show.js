@@ -1,16 +1,12 @@
 import { useEffect, useState, useRef } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import StarRating from "../../components/StarRating";
 import { getPlace } from "../../services/placeService";
-import axios from 'axios'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-function Show({ user }) {
-    const userId = user.id
+function Show() {
     const [places, setPlaces] = useState({})
-    const [savedPlaces, setSavedPlaces] = useState([]);
-    // const [ setUser] = useState({})
     const navigate = useNavigate()
     const params = useParams()
     const imgRef = useRef()
@@ -21,7 +17,6 @@ function Show({ user }) {
     const stateRef = useRef()
     const weatherRef = useRef()
     const userRef = useRef()
-    const bodyRef = useRef()
 
     function goBack() {
         navigate(-1)
@@ -39,13 +34,13 @@ function Show({ user }) {
 
     }, [params.id])
 
-    async function handleDeleteComment(comment){
+    // async function handleDeleteComment(comment){
 
-    }
+    // }
 
-    async function handleSubmit(){
+    // async function handleSubmit(){
 
-    }
+    // }
 
 
     return (

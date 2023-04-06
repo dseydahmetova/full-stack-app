@@ -1,7 +1,6 @@
 import { customAxios, customAxiosWithAuth } from './api'
 
 
-
 // get all places from API and save it to Mongo DB
 export async function getAPIPlaces(page) {
     const axios = customAxios()
@@ -104,13 +103,10 @@ export async function deletePlace(id) {
 
 // create a new place
 export async function createPlace(place) {
-    console.log('service place', place)
-
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.post('/places', place)
-        console.log('service data ', response.data)
-        return  response.data
+        return response.data
     } catch(err) {
         console.log(err.message)
     }

@@ -12,10 +12,10 @@ const { authorize, confirmUserAccess } = require('../middleware/authMiddleware')
 router.get('/', placeControl.index)
 
 // create
-router.post('/', placeControl.create)
+router.post('/', authorize, placeControl.create)
 
 //save
-router.put('/', placeControl.save)
+router.put('/', authorize, placeControl.save)
 
 // seed 
 router.get('/seed', placeControl.seed)
@@ -24,10 +24,10 @@ router.get('/seed', placeControl.seed)
 router.get('/search', placeControl.search)
 
 // delete
-router.delete('/:id', placeControl.delete)
+router.delete('/:id', authorize, confirmUserAccess, placeControl.delete)
 
 // update
-router.put('/:id',  placeControl.update)
+router.put('/:id', authorize, confirmUserAccess, placeControl.update)
 
 // show
 router.get('/:id', placeControl.show)
@@ -35,17 +35,14 @@ router.get('/:id', placeControl.show)
 //like
 router.put('/:id/likePlace', placeControl.like)
 
-//save
-router.put('/', placeControl.save)
-
 //getSaved
-router.get("/savedPlaces/ids/:id", placeControl.getSavedPlaces)
+router.get("/savedPlaces/ids/:id", authorize, placeControl.getSavedPlaces)
 
 //showSaved
-router.get("/savedPlaces/:id", placeControl.showSavedPlaces)
+router.get("/savedPlaces/:id", authorize, placeControl.showSavedPlaces)
 
 //deleteSaved
-router.delete("/savedPlaces/:userId/:placeId", placeControl.deleteSavedPlaces)
+router.delete("/savedPlaces/:userId/:placeId", authorize, confirmUserAccess, placeControl.deleteSavedPlaces)
 
 
 
