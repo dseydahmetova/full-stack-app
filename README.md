@@ -59,12 +59,9 @@ Solution: It's because of media queries, so on smaller screens it changes the st
 ```
 
 **Screenshots:**
+![ERD Diagram](./readmeImg/Capture.jpg)
 <img src="/readmeImg/homePage.JPG" alt="My app"/>
-# ERD Diagram
-![Screenshot](./readmeImg/Capture.jpg)
-# Home Page
-![Screenshot](homePage.JPG)
-# Login/Setting User
+
 ![Screenshot](./readmeImg/Settings.JPG)
 ![Screenshot](./readmeImg/login.JPG)
 
