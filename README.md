@@ -60,12 +60,12 @@ Solution: It's because of media queries, so on smaller screens it changes the st
 
 **Screenshots:**
 # ERD Diagram
-![Screenshot](./readmeImg/Capture.JPG)
+![ERD](https://github.com/dseydahmetova/full-stack-app/blob/main/readmeImg/Capture.JPG?raw=true)
 # Home Page
-![Screenshot](./readmeImg/homePage.JPG)
+![Homet](https://github.com/dseydahmetova/full-stack-app/blob/main/readmeImg/homePage.JPG?raw=true)
 # Login/Setting User
-![Screenshot](./readmeImg/Settings.JPG)
-![Screenshot](./readmeImg/login.JPG)
+![Settings](https://github.com/dseydahmetova/full-stack-app/blob/main/readmeImg/Settings.JPG?raw=true)
+![Login](https://github.com/dseydahmetova/full-stack-app/blob/main/readmeImg/login.JPG?raw=true)
 
 
 
