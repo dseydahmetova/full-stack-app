@@ -5,7 +5,7 @@ const axios = require('axios')
 //Seed the places from api to DB
 module.exports.seed = async (req, res) => {
 
-    const key = 'Wkbi1lT4S7DeLlieN07oVPk4c3n8rycPXNhpbb3W'
+    const key = process.env.REACT_APP_API_KEY
     try{
         const response = await axios.get(
             `https://developer.nps.gov/api/v1/parks?&api_key=${key}`
@@ -21,17 +21,15 @@ module.exports.seed = async (req, res) => {
                     city: myPlace[i].addresses[0]['city'],
                     stateCode: myPlace[i].addresses[0]['stateCode'],
                     description: myPlace[i].description,
-                    weatherInfo: myPlace[i].weatherInfo
+                    weatherInfo: myPlace[i].weatherInfo,
+                    user: 'admin'
                  })
                  await places.save()
              }
-       
-        // console.log("myplace", myPlace)
         
     }catch(error){
         console.log(error)
     }
-    res.redirect('/places')
 }
 
 // get all places from DB
@@ -118,26 +116,32 @@ module.exports.save = async (req, res) => {
 }
 
 
-module.exports.getSavedPlaces = async (req, res) => {
+
+//if user saved the place, show it
+module.exports.showSavedPlaces = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
-        res.status(200).json({savedPlaces: user?.savedPlaces})
+        const user = await User.findById(req.params.id).populate('savedPlaces')
+        res.status(200).json({savedPlaces: user.savedPlaces})
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
 }
 
-module.exports.showSavedPlaces = async (req, res) => {
+
+//delete saved place
+module.exports.deleteSavedPlaces = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
-        const savedPlaces = await Place.find({
-            _id: {$in: user.savedRecipes}
+        const user = await User.findByIdAndUpdate(req.params.userId, {
+            $pull: {
+                savedPlaces: req.params.placeId
+            }
         })
-        res.status(200).json({savedPlaces})
+        res.status(200).json({message: 'deleted successfully'})
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
 }
+
 
 
 //search place
@@ -145,19 +149,23 @@ module.exports.showSavedPlaces = async (req, res) => {
 
 module.exports.search = async (req, res) => {
    const {searchQuery} = req.query
-   
-    try {
+   try {
         // i used to lowercase search query  
                const fullName = new RegExp(searchQuery, 'i') 
           const place = await Place.find({fullName})    
         res.status(200).json({place})
-       
     } catch(err) {
         res.status(404).json({ error: err.message })
     }
-   
 }
 
-
-// EXTRA CODE FOR COMMENTS
-
+//first checking if the user already saved the place
+module.exports.getSavedPlaces = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+       
+        res.status(200).json({savedPlaces: user?.savedPlaces})
+    } catch(err) {
+        res.status(404).json({ error: err.message })
+    }
+}

@@ -54,8 +54,3 @@ module.exports = {
     authorize,
     confirmUserAccess
 }
-
-
-module.exports = {
-    authorize
-}

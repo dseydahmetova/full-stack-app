@@ -52,7 +52,7 @@ function Login({ setUser }) {
                 </div>
             </div>
             <div className="form-body">
-                <h2>Sign In</h2>
+                <h1>Sign In</h1>
                 <p>Do not have an account? </p>
                 <button type="button" className="btn btn-primary" onClick={goToRegister} data-bs-whatever="@mdo">Sign Up</button>
                 <form onSubmit={handleSubmit}>
@@ -83,12 +83,6 @@ function Login({ setUser }) {
                 </div>
                 </form>
             </div>
-           
-            {/* <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <Register />
-                </div> 
-            </div> */}
         </div>
     );
 }

@@ -5,6 +5,8 @@ module.exports.show = async (req, res) => {
         const foundUser = await User.findById(req.id)
 
         res.json({
+            name: foundUser.name,
+            lastname: foundUser.lastname,
             username: foundUser.username,
             email: foundUser.email,
             favoritePlaces: [foundUser.favoritePlaces],

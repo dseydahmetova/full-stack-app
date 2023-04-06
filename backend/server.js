@@ -1,9 +1,5 @@
 // Require dotenv to setup environment variables in our server
 require('dotenv').config()
-const {response} = require('express')
-const https = require('https')
-const axios = require('axios');
-const Place = require('./models/placeModel')
 
 //load express
 const express = require('express')
@@ -18,6 +14,12 @@ const connectDB = require('./config/db')
 
 //connect to DB
 connectDB()
+
+// change default value of firebase size
+const bodyParser = require('body-parser');            
+app.use(bodyParser.json({limit:'50mb'})); 
+app.use(bodyParser.urlencoded({extended:true, limit:'50mb'})); 
+
 
 //require routes
 const userRoutes = require('./routes/userRoutes')

@@ -20,8 +20,9 @@ const placeSchema = new Schema({
       type: Number,
       default: 0,
   },
+  user: {type: String, required: true},
    comments: [  commentSchema ]
-})
+}, {timestamps: true})
 
 const Place = mongoose.model('Place', placeSchema)
 const Comment = mongoose.model('Comment', commentSchema)
