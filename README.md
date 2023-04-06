@@ -60,11 +60,12 @@ Solution: It's because of media queries, so on smaller screens it changes the st
 
 **Screenshots:**
 # ERD Diagram
-<!-- * erd
-![home page ](https://github.com/dseydahmetova/full-stack-app/blob/brokencode/readmeImg/Capture.JPG?raw=true/)
- 
-* 
-![home](https://github.com/dseydahmetova/full-stack-app/blob/brokencode/readmeImg/homePage.JPG?raw=true) 
+![Screenshot](./readmeImg/Capture.JPG)
+# Home Page
+![Screenshot](./readmeImg/homePage.JPG)
+# Login/Setting User
+![Screenshot](./readmeImg/Settings.JPG)
+![Screenshot](./readmeImg/login.JPG)
 
 
 
