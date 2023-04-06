@@ -24,18 +24,19 @@ function Save({ user }) {
 
     }, [])
 
+
+    console.log(savedPlaces)
     async function handleDeleteSavedPlace(userId, placeId){
         await deleteSavedPlace(userId, placeId)
-        setIsLoading(false)
-        // const data = await getAllPlaces()
-        // setPlaces(data)
+        // setIsLoading(false)
+        const newData = savedPlaces.filter((place) => place._id !== placeId);
+        setSavedPlaces(newData);
     }
 
     
     return (
 
         <div id="saved-places">
-        <form>
         <ul>
         {!savedPlaces.length ? 
         <h1 className = "save-msg">Sorry, there are no places to show..</h1>
@@ -77,7 +78,6 @@ function Save({ user }) {
                 </div>
             )}
                     </ul>
-            </form>
         </div>
     )
 }

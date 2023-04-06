@@ -64,7 +64,7 @@ function Show({ user }) {
                             <StarRating />
 
 
-                            {
+                            {/* {
                                 places.comments?.length ?
                                     <>
                                         <div>Comments:</div>
@@ -83,7 +83,7 @@ function Show({ user }) {
                                         <br /><br />
                                     </>
                                     : ''
-                            }
+                            } */}
                             {/* {user &&
                                 <details ref={detailsRef}>
                                     <summary style={{ opacity: '.5' }}>Leave a comment:</summary>

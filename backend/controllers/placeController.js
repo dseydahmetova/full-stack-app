@@ -62,8 +62,7 @@ module.exports.show = async (req, res) => {
 module.exports.create = async (req, res) => {
     try {
         const place = await Place.create(req.body)
-        console.log('control', Place.length)
-        // res.status(200).json(place)
+        res.status(200).json(place)
     } catch(err) {
         res.status(400).json({ error: err.message })
     }

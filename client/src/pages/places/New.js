@@ -3,9 +3,9 @@ import FileBase from 'react-file-base64';
 import { createPlace, getPlace, updatePlace, getAllPlaces} from '../../services/placeService'
 
 
-function New({ user, currentId, setCurrentId, setPlaces}) {
+function New({ user, currentId, setCurrentId, places, setPlaces}) {
     const [placeData, setPlaceData] = useState({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: ''});
-console.log(placeData)
+    
     useEffect(() => {
         if (currentId) {
             async function loadData() {
@@ -23,15 +23,28 @@ console.log(placeData)
         setPlaceData({ fullName: '', address: '', city: '', stateCode: '', image: '', description: '', weatherInfo: '', user: '' });
     };
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         try {
             if (currentId) {
                 await updatePlace(currentId, placeData)
+            
+                const updatedData = places.map((place) =>
+                place.id === currentId ? { ...placeData } : place
+              );
+        
+              setPlaces(updatedData);
+                  }
+    
+         
+            else {
 
-            } else {
                 await createPlace(placeData)
                 const data = await getAllPlaces()
-    setPlaces(data)
+                setPlaces(data)
+    const newData = [...places, placeData];
+    setPlaces(newData);
+
             }
             clear()
 
@@ -40,7 +53,7 @@ console.log(placeData)
         }
     }
 
-
+// console.log('placedata',placeData)
 
     return (
         <div className="form">
@@ -57,16 +70,16 @@ console.log(placeData)
                 <div >
                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setPlaceData({ ...placeData, image: base64 })} />
                 </div>
-                {user.username ?
+                {/* {user.username ? */}
                 <>
                 <button 
-                disabled={!user.username}
+                // disabled={!user.username}
                 type="submit">Submit</button>
                 <button onClick={clear} >Cancel</button>
                 </>
                 : 
                 <h2 className='warning-msg'>Please log in to create/edit your place</h2>
-                }
+                {/* } */}
             </form>
         </div>
 

@@ -1,6 +1,6 @@
 import { customAxios, customAxiosWithAuth } from './api'
 
-const state = []
+
 
 // get all places from API and save it to Mongo DB
 export async function getAPIPlaces(page) {
@@ -20,7 +20,7 @@ export async function getAllPlaces(page) {
     try {
         const response = await axios.get(`/places?page=${page}`)
         return {
-            ...state,
+
             places: response.data.data,
             currentPage: response.data.currentPage,
             totalnumberOfPages: response.data.totalnumberOfPages
@@ -95,7 +95,7 @@ export async function deletePlace(id) {
     const axios = customAxiosWithAuth()
     try {
         const response = await axios.delete(`/places/${id}`)
-        return state.filter(place => place.id!== response.data)
+        return response.data
     } catch(err) {
         console.log(err.message)
     }
@@ -110,7 +110,7 @@ export async function createPlace(place) {
     try {
         const response = await axios.post('/places', place)
         console.log('service data ', response.data)
-        // return [...state, response.data]
+        return  response.data
     } catch(err) {
         console.log(err.message)
     }
@@ -121,8 +121,7 @@ export async function createPlace(place) {
 export async function likePlace(id) {
     const axios = customAxiosWithAuth()
     try {
-        const response = await axios.put(`/places/${id}/likePlace`)
-    return state.map(place => (place._id === response.data._id ? response.data : place))
+         await axios.put(`/places/${id}/likePlace`)
     } catch(err) {
         console.log(err)
     }
@@ -132,8 +131,8 @@ export async function likePlace(id) {
 export async function updatePlace(id, place) {
     const axios = customAxiosWithAuth()
     try {
-        const response = await axios.put(`/places/${id}`, place)
-        return state.map(place => (place._id === response.data._id ? response.data : place))
+      await axios.put(`/places/${id}`, place)
+        return 
     } catch(err) {
         console.log(err.message)
     }

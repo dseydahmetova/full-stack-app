@@ -44,30 +44,28 @@ function Index({ user }) {
 
 
     async function handleDeletePlace(id) {
-       const data = await deletePlace(id)
-    //    place.filter(data)
-        // window.location.reload(false);
-        // const data = await getAllPlaces()
-        // setPlaces(data)
-
-
-
-//         await removeRecipeFromUserFavUsingId(recipe.idMeal)
-//     let updatedUser = {...user}
-//     updatedUser.favoriterecipes= updatedUser.favoriterecipes.filter(c => c._id !== recipe._id)
-//    //console.log(updatedUser.favoriterecipes)
-//     setUser(updatedUser)
+       await deletePlace(id)
+       let oldData = [...places]
+       let  updatedData = oldData.filter(place => place._id !== id)
+       setPlaces(updatedData)
     }
 
     async function handleLikePlace(id) {
         await likePlace(id)
-        // const data = await getAllPlaces()
-        // setPlaces(data)
+        const index = places.findIndex((place) => place._id === id);
+  // check if the place is found
+          if (index !== -1) {
+            const newPlaces = [...places];
+            newPlaces[index].likeCount += 1;
+            setPlaces(newPlaces);
+    }
     }
 
     async function addToFavorite(userId, placeId) {
         const savedPlace = await savePlace(userId, placeId)
         setSavedPlaces(savedPlace)
+        setSavedPlaces([...savedPlaces, placeId]);
+
     }
 
 
@@ -93,11 +91,13 @@ function Index({ user }) {
 
     // };
 
+function isPlaceSaved(placeId) {
+    return savedPlaces && savedPlaces.includes(placeId);
+  }
 
-
-    function isPlaceSaved(id) {
-        return savedPlaces && savedPlaces.includes(id)
-    }
+    // function isPlaceSaved(id) {
+    //     return savedPlaces && savedPlaces.includes(id)
+    // }
 
 
     function handleKeyPressed(e){
@@ -149,7 +149,7 @@ function Index({ user }) {
               
                     {places.map((place, index) =>
 
-                        <div className="card" key={index}>
+                        <div className="card" key={place._id}>
                             <Link to={`/places/${place._id}`} >
 
                                 <div className="card-top">
@@ -176,13 +176,13 @@ function Index({ user }) {
                                         </button>
 
                                         <button className="icon-btn"
-                                        disabled={user.username !== place.user}
+                                        // disabled={user.username !== place.user}
                                             onClick={(e) => handleDeletePlace(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-trash" /> Delete
                                         </button>
                                         <button className="icon-btn"
-                                         disabled={user.username !== place.user}
+                                        //  disabled={user.username !== place.user}
                                             onClick={(e) => setCurrentId(place._id)}
                                         >
                                             <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> Edit
@@ -190,7 +190,7 @@ function Index({ user }) {
                                      
                                     <button   className="icon-btn"
                                         onClick={() => { addToFavorite(user.id, place._id) }}
-                                    disabled={isPlaceSaved(place._id) ||!user.username}
+                                    disabled={isPlaceSaved(place._id) ||!user.username  }
                                     >
                                         {isPlaceSaved(place._id) ? "Saved" : "Save"}
                                                         </button>
@@ -209,7 +209,7 @@ function Index({ user }) {
             )}
                 {/* <div className="form"> */}
 
-                    <New currentId={currentId} setCurrentId={setCurrentId} user={user} setPlaces={setPlaces} />
+                    <New currentId={currentId} setCurrentId={setCurrentId} user={user} places= {places} setPlaces={setPlaces} />
                     
                 {/* </div> */}
                 <div className="pagination">

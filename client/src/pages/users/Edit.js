@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteUser, updateUser } from "../../services/userService"
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 function Edit({ user, setUser }) {
     const navigate = useNavigate()
@@ -30,11 +32,29 @@ function Edit({ user, setUser }) {
         await updateUser(user.id, updatedUser)
         setUser(user)
         setChanged(false)
-        alert('edited successfully')
     }
 
 
+    const alertDeleteUser = (e) => {
+        e.preventDefault()
+       confirmAlert({
+          title: 'Confirm to submit',
+          message: 'Are you sure to do this.',
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => handleDeleteUser()
+            },
+            {
+              label: 'No',
+              //onClick: () => alert('Click No')
+            }
+          ]
+        });
+      }
+
     async function handleDeleteUser() {
+        // alert('are you sure you want to delete this user?')
         await deleteUser(user.id)
         localStorage.removeItem("token")
         setUser({})
@@ -118,7 +138,7 @@ function Edit({ user, setUser }) {
 
                 ) : null}
 
-                <button onClick={handleDeleteUser}>Delete Account</button>
+                <button onClick={alertDeleteUser}>Delete Account</button>
 
 
                 <Link to='/places'>
