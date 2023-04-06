@@ -41,8 +41,14 @@ module.exports.index = async (req, res) => {
         const startIndex = (Number(page) - 1) * LIMIT
         // const total = await Place.countDocuments({}).maxTimeMS(30000)
 //id = -1 the latest post, limit per page and skip previos pages
-        const places = await Place.find().sort({_id: -1}).limit(LIMIT).skip(startIndex)
-        res.status(200).json({data: places, currentPage: Number(page), totalnumberOfPages: Math.ceil(total / LIMIT)})
+        // const places = await Place.find().sort({_id: -1}).limit(LIMIT).skip(startIndex)
+        // res.status(200).json({data: places, currentPage: Number(page), totalnumberOfPages: Math.ceil(total / LIMIT)})
+  
+
+ const places = await Place.find()
+        res.status(200).json({data: places})
+  
+
     } catch(err) {
         res.status(400).json({ error: err.message })
     }
