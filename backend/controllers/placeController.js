@@ -45,7 +45,7 @@ module.exports.index = async (req, res) => {
         // res.status(200).json({data: places, currentPage: Number(page), totalnumberOfPages: Math.ceil(total / LIMIT)})
   
 
- const places = await Place.find(query, { maxTimeMS: 5000 })
+ const places = await Place.find({}, { maxTimeMS: 5000 })
         res.status(200).json({data: places})
   
 
