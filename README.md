@@ -58,6 +58,10 @@ Solution: It's because of media queries, so on smaller screens it changes the st
   }
 ```
 
+3 {
+  "error": "Operation `places.countDocuments()` buffering timed out after 10000ms"
+}
+
 **Screenshots:**
 ![ERD Diagram](./readmeImg/Capture.jpg)
 <img src="/readmeImg/homePage.JPG" alt="My app"/>

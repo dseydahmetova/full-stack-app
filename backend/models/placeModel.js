@@ -27,4 +27,11 @@ const placeSchema = new Schema({
 const Place = mongoose.model('Place', placeSchema)
 const Comment = mongoose.model('Comment', commentSchema)
 
+// async function run() {
+//    await mongoose.connect('mongodb://localhost:27017');
+//    mongoose.model('User', schema);
+ 
+//    await mongoose.model('User').findOne(); // Works!
+//  }
+
  module.exports = Place

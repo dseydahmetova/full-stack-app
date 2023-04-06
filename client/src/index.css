@@ -96,9 +96,13 @@ body {
 }
 
 .pagination {
-  /* border-radius: 10px; */
-  margin-top: 5rem;
   padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination a{
+  font-size: 22px;
 }
 
 .icon-btn {
@@ -206,9 +210,6 @@ textarea {
 .Home {
   display: grid;
   grid-template-columns: 5fr 2fr;
-  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
-  /* grid-template-columns: 1fr 3fr 1fr; */
-  /* padding-top: 40px; */
   justify-content: space-between;
   align-items: stretch;
   gap: 10px;
@@ -223,7 +224,7 @@ textarea {
   border-radius: 8px;
   min-width: 50%;
   max-width: 80%;
-  height: 35%;
+  height: 800px;
   display: flex;
   padding-top: 30px;
   justify-content: center;

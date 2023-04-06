@@ -26,7 +26,7 @@ function Index({ user }) {
 
     useEffect(() => {
         async function loadData() {
-            const data = await getAllPlaces()
+            const data = await getAllPlaces(page)
             setPlaces(data.places)
         }
 
@@ -39,7 +39,7 @@ function Index({ user }) {
 
         loadSavedPlaces()
         loadData()
-    }, [])
+    }, [page])
 
 
     async function handleDeletePlace(id) {
@@ -208,7 +208,7 @@ function Index({ user }) {
 
                 <div className="pagination">
                     {(!searchQuery) && (
-                        <div>
+                        <div className="pagination">
                             <Pagination page={page} />
                         </div>
                     )}
