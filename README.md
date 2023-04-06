@@ -16,7 +16,7 @@ The Project full CRUD app using the technologies outlined below.
 - uses  CSS framework for styling:  Bootstrap, MaterialUI
 - maintaines a structure by creating model and Schema using mongoose.
 
-### Live Demo: https://
+### Live Demo: https://travelapp-frontend-m9nk.onrender.com/places
 
 ### Configuration and Setup
 1. In order to run this project locally, simply fork and clone the repository or download as zip and unzip on your machine.
@@ -63,7 +63,7 @@ Solution: It's because of media queries, so on smaller screens it changes the st
 }
 
 **Screenshots:**
-![ERD Diagram](./readmeImg/Capture.jpg)
+![ERD Diagram](./readmeImg/Capture.JPG)
 <img src="/readmeImg/homePage.JPG" alt="My app"/>
 
 ![Screenshot](./readmeImg/Settings.JPG)
